@@ -47,13 +47,14 @@ namespace Auto_Club
                 string id = dataGridView1.Rows[e.RowIndex].Cells["Car Number"].Value.ToString();
 
                 Edit edit = new Edit(id);
-                edit.Show();
+                edit.FormClosed += (s, args) => this.Show();
                 this.Hide();
+                edit.Show();
             }
 
 
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
@@ -101,9 +102,9 @@ namespace Auto_Club
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Dashboard dashboard = new Dashboard();
-            this.Hide();
-            dashboard.Show();
+            //Dashboard dashboard = new Dashboard();
+            //dashboard.Show();
+            this.Close();
         }
 
         private void label1_Click(object sender, EventArgs e)

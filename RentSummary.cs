@@ -194,9 +194,11 @@ namespace Auto_Club
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Customer customer = new Customer(car_num);
-            customer.Show();
+            //this.Hide();
+            //Customer customer = new Customer(car_num);
+            //customer.Show();
+
+            this.Close();
 
         }
     }
