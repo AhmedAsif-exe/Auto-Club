@@ -23,11 +23,11 @@ namespace Auto_Club
         }
         void get_data(int customer_id)
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
-                
+
                 string query = "select * from customers where customer_id = @customer_id";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -70,7 +70,7 @@ namespace Auto_Club
             try
             {
 
-                string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+                string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
                 using (SqlConnection conn = new SqlConnection(connection_string))
                 {
                     conn.Open();
@@ -148,16 +148,16 @@ namespace Auto_Club
         private void button3_Click(object sender, EventArgs e)
         {
             save_customer();
-            customer_search customer_Search = new customer_search();
-            customer_Search.Show();
-            this.Hide();
+            //customer_search customer_Search = new customer_search();
+            //customer_Search.Show();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            customer_search customer_Search = new customer_search();
-            customer_Search.Show();
-            this.Hide();
+            //customer_search customer_Search = new customer_search();
+            //customer_Search.Show();
+            this.Close();
         }
     }
 }

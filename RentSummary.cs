@@ -27,7 +27,7 @@ namespace Auto_Club
         }
         void get_car()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
@@ -51,7 +51,7 @@ namespace Auto_Club
         }
         void get_customers()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
@@ -76,7 +76,7 @@ namespace Auto_Club
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
@@ -108,18 +108,20 @@ namespace Auto_Club
 
 
 
-                Dashboard dashboard = new Dashboard();
-                this.Hide();
-                dashboard.Show();
+                //Dashboard dashboard = new Dashboard();
+                //dashboard.Show();
+                this.Close();
 
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Customer customer = new Customer(car_num);
-            customer.Show();
+            //this.Hide();
+            //Customer customer = new Customer(car_num);
+            //customer.Show();
+
+            this.Close();
 
         }
     }

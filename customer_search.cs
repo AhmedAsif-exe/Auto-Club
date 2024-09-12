@@ -43,9 +43,9 @@ namespace Auto_Club
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            Dashboard dashboard = new Dashboard();
-            this.Hide();
-            dashboard.Show();
+            //Dashboard dashboard = new Dashboard();
+            //dashboard.Show();
+            this.Close();
         }
 
         void cell_click_handler(object sender, DataGridViewCellEventArgs e)
@@ -54,13 +54,15 @@ namespace Auto_Club
             {
                 string id = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value.ToString();
                 customer_edit customer = new customer_edit(Convert.ToInt32(id));
-                customer.Show();
+                customer.FormClosed += (s, args) => this.Show();
                 this.Hide();
+                customer.Show();
             }
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            dataGridView1.Rows.Clear();
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             string sub_name = textBox1.Text.Trim();
             using (SqlConnection conn = new SqlConnection(connection_string))
             {

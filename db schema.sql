@@ -135,3 +135,8 @@ update cars
 set status = 'Available'
 where status is NULL
 
+SELECT name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date 
+FROM customer_cars cc
+INNER JOIN customers c ON cc.customer_id = c.customer_id
+INNER JOIN cars ON cc.car_id = cars.car_number
+WHERE cc.rental_date BETWEEN CAST(GETDATE() AS DATE) AND CAST(GETDATE() AS DATE);

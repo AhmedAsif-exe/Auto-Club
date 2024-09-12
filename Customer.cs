@@ -23,9 +23,9 @@ namespace Auto_Club
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 form = new Form1();
-            form.Show();
-            this.Hide();
+            //Form1 form = new Form1();
+            //form.Show();
+            this.Close();
         }
         int save_customer()
         {
@@ -33,7 +33,7 @@ namespace Auto_Club
             try
             {
 
-                string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+                string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
                 using (SqlConnection conn = new SqlConnection(connection_string))
                 {
                     conn.Open();
@@ -84,8 +84,9 @@ namespace Auto_Club
             try
             {
                 RentSummary rentSummary = new RentSummary(car_num, customer_id);
-                rentSummary.Show();
+                rentSummary.FormClosed += (s, args) => this.Close();
                 this.Hide();
+                rentSummary.Show();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }

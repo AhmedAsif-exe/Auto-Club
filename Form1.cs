@@ -17,15 +17,49 @@ namespace Auto_Club
         public Form1()
         {
             InitializeComponent();
+            InitializeComboBox();
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void InitializeComboBox()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            comboBox1.Items.Clear();
+            comboBox1.Items.Add("All");  // Add 'All' option
+            comboBox1.SelectedIndex = 0;
+
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
-                string car_num = textBox1.Text.Trim();
-                string query = "select * from cars where car_number = @carnum";
+                string query = "SELECT car_number FROM cars";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Assuming car_number is a string, modify if it's a different type
+                            comboBox1.Items.Add(reader["car_number"].ToString());
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connection_string))
+            {
+                conn.Open();
+                string query = "select * from cars where 1=1 ";
+                if (comboBox1.SelectedItem.ToString() == "All")
+                {
+                    query += "car_number = @carnum";
+                }
+                //string car_num = textBox1.Text.Trim();
+                string car_num = comboBox1.SelectedItem.ToString();
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@carnum", car_num);
@@ -82,16 +116,24 @@ namespace Auto_Club
             }
             string car_num = textBox1.Text.Trim();
             Customer customer = new Customer(car_num);
-            customer.Show();
+            customer.FormClosed += (s, args) => this.Close();
             this.Hide();
+            customer.Show();
 
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            Dashboard dashboard = new Dashboard();
-            this.Hide();
-            dashboard.Show();
+            //Dashboard dashboard = new Dashboard();
+            //this.Hide();
+            //dashboard.Show();
+            //dashboard.FormClosed += (s, args) => this.Show();
+            //dashboard.Show();
+            this.Close();
+
+            //cashier cashier = new cashier();
+            //cashier.FormClosed += (s, args) => this.Show();
+            //cashier.Show();
         }
     }
 }

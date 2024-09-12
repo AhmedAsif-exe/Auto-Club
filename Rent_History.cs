@@ -22,27 +22,26 @@ namespace Auto_Club
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Dashboard dashboard = new Dashboard();
-            this.Hide();
-            dashboard.Show();
+            //Dashboard dashboard = new Dashboard();
+            //dashboard.Show();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             string FromDate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
             string ToDate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
                 string query = @"
-                                select name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date from customer_cars cc 
-                                inner join customers c on
-                                cc.customer_id = c.customer_id
-                                inner join cars on
-                                cc.car_id = cars.car_number
-                                 cc.rental_date BETWEEN @start_date AND @end_date
+                                SELECT name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date 
+FROM customer_cars cc
+INNER JOIN customers c ON cc.customer_id = c.customer_id
+INNER JOIN cars ON cc.car_id = cars.car_number
+WHERE cc.rental_date BETWEEN @start_date AND @end_date;
                                 ";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -71,6 +70,11 @@ namespace Auto_Club
 
                 }
             }
+        }
+
+        private void Rent_History_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

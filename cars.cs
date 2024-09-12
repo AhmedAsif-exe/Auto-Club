@@ -47,16 +47,18 @@ namespace Auto_Club
                 string id = dataGridView1.Rows[e.RowIndex].Cells["Car Number"].Value.ToString();
 
                 Edit edit = new Edit(id);
-                edit.Show();
+                edit.FormClosed += (s, args) => this.Show();
                 this.Hide();
+                edit.Show();
             }
 
 
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            dataGridView1.Rows.Clear();
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             string car_number = textBox1.Text.Trim();
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
@@ -100,9 +102,9 @@ namespace Auto_Club
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Dashboard dashboard = new Dashboard();
-            this.Hide();
-            dashboard.Show();
+            //Dashboard dashboard = new Dashboard();
+            //dashboard.Show();
+            this.Close();
         }
 
         private void label1_Click(object sender, EventArgs e)

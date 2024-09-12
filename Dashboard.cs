@@ -20,29 +20,33 @@ namespace Auto_Club
         private void button1_Click(object sender, EventArgs e)
         {
             Form1 car = new Form1();
-            this.Hide();
+            car.FormClosed += (s, args) => this.Show();
             car.Show();
+            this.Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             cars cars = new cars();
-            this.Hide();
+            cars.FormClosed += (s, args) => this.Show();
             cars.Show();
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Rent_History rent = new Rent_History();
-            this.Hide();
+            rent.FormClosed += (s, args) => this.Show();
             rent.Show();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             customer_search customer = new customer_search();
-            this.Hide();
+            customer.FormClosed += (s, args) => this.Show();
             customer.Show();
+            this.Hide();
         }
     }
 }
