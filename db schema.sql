@@ -16,7 +16,6 @@ CREATE TABLE cars (
 	status varchar(50)
 
 );
-select * from cars
 
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY IDENTITY(1,1), -- Auto-incrementing customer ID
@@ -34,8 +33,6 @@ CREATE TABLE customers (
     guarantor_phone_residence VARCHAR(20) ,     -- Guarantor's phone residence
     guarantor_current_residence VARCHAR(255) Not NUll -- Guarantor's current residence
 );
-drop table customers
-drop table customer_cars
 CREATE TABLE customer_cars (
     rental_id INT PRIMARY KEY IDENTITY(1,1),    -- Auto-incrementing rental ID
     customer_id INT NOT NULL,                   -- Customer ID (foreign key)
@@ -47,15 +44,7 @@ CREATE TABLE customer_cars (
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
     FOREIGN KEY (car_id) REFERENCES cars(car_number)
 );
-select * from cars
-select * from customer_cars
-insert into customer_cars values( customer_id, car_id, rental
 
-
-drop table customer_cars
-drop table customers
-
-drop table cars
 
 INSERT INTO cars (car_number, maker, model, engine_number, chassis_number, color) VALUES
 ('NA-277', 'RECO', '2022', '1GD5206292', 'GUN126R-5555813', 'Red'),
@@ -146,32 +135,3 @@ update cars
 set status = 'Available'
 where status is NULL
 
-
-select * from customer_cars
-
-select * from customer_cars
-select * from cars
-select name, cnic, phone_number from customers Like 
-drop table cars
-drop table customer_cars
-
-select * from customers 
-
-
-
-select name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date from customer_cars cc 
-inner join customers c on
-cc.customer_id = c.customer_id
-inner join cars on
-cc.car_id = cars.car_number
- cc.rental_date BETWEEN @start_date AND @end_date
-
-
-
- select * from cars
-
- update cars 
- set status = 'Available'
- where status is Null
-
- select * from cars
