@@ -134,4 +134,4 @@ INSERT INTO cars (car_number, maker, model, engine_number, chassis_number, color
 update cars
 set status = 'Available'
 where status is NULL
-
+select * from users

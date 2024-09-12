@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RentSummary));
             button1 = new Button();
             button3 = new Button();
             Model = new TextBox();
@@ -54,6 +55,9 @@
             dateTimePicker2 = new DateTimePicker();
             label11 = new Label();
             label12 = new Label();
+            printDocument1 = new System.Drawing.Printing.PrintDocument();
+            printDialog1 = new PrintDialog();
+            printPreviewDialog1 = new PrintPreviewDialog();
             SuspendLayout();
             // 
             // button1
@@ -213,7 +217,6 @@
             Name.Name = "Name";
             Name.Size = new Size(199, 31);
             Name.TabIndex = 52;
-            Name.Text = "RentSummary";
             // 
             // phone_number
             // 
@@ -283,6 +286,20 @@
             label12.TabIndex = 61;
             label12.Text = "To:";
             // 
+            // printDialog1
+            // 
+            printDialog1.UseEXDialog = true;
+            // 
+            // printPreviewDialog1
+            // 
+            printPreviewDialog1.AutoScrollMargin = new Size(0, 0);
+            printPreviewDialog1.AutoScrollMinSize = new Size(0, 0);
+            printPreviewDialog1.ClientSize = new Size(400, 300);
+            printPreviewDialog1.Enabled = true;
+            printPreviewDialog1.Icon = (Icon)resources.GetObject("printPreviewDialog1.Icon");
+            printPreviewDialog1.Name = "printPreviewDialog1";
+            printPreviewDialog1.Visible = false;
+            // 
             // RentSummary
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -314,6 +331,7 @@
             Controls.Add(label2);
             Controls.Add(button3);
             Controls.Add(button1);
+            //Name = "RentSummary";
             Text = "RentSummary";
             ResumeLayout(false);
             PerformLayout();
@@ -347,5 +365,8 @@
         private DateTimePicker dateTimePicker2;
         private Label label11;
         private Label label12;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private PrintDialog printDialog1;
+        private PrintPreviewDialog printPreviewDialog1;
     }
 }
