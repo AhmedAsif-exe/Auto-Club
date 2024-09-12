@@ -26,6 +26,7 @@ namespace Auto_Club
             dataGridView1.Columns.Add("Model", "Model");
             dataGridView1.Columns.Add("Engine Number", "Engine Number");
             dataGridView1.Columns.Add("Chassis", "Chassis");
+            dataGridView1.Columns.Add("Color", "Color");
             dataGridView1.Columns.Add("Status", "Status");
 
             DataGridViewButtonColumn editButtonColumn = new DataGridViewButtonColumn();
@@ -74,10 +75,12 @@ namespace Auto_Club
                             string maker = reader.IsDBNull(1) ? "N/A" : reader.GetString(1);
                             string model = reader.IsDBNull(2) ? "N/A" : reader.GetString(2);
                             string engine = reader.IsDBNull(3) ? "N/A" : reader.GetString(3);
-                            string color = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
-                            string status = reader.IsDBNull(5) ? "N/A" : reader.GetString(5);
+                            string chassis = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
 
-                            dataGridView1.Rows.Add(car_num, maker, model, engine, color, status);
+                            string color = reader.IsDBNull(5) ? "N/A" : reader.GetString(5);
+                            string status = reader.IsDBNull(6) ? "N/A" : reader.GetString(6);
+
+                            dataGridView1.Rows.Add(car_num, maker, model, engine, chassis, color, status);
                         }
 
 ;

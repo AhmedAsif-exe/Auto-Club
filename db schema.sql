@@ -169,3 +169,9 @@ cc.car_id = cars.car_number
 
 
  select * from cars
+
+ update cars 
+ set status = 'Available'
+ where status is Null
+
+ select * from cars
