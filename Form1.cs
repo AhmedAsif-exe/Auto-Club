@@ -22,8 +22,8 @@ namespace Auto_Club
         private void InitializeComboBox()
         {
             comboBox1.Items.Clear();
-            comboBox1.Items.Add("All");  // Add 'All' option
-            comboBox1.SelectedIndex = 0;
+
+
 
             string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
@@ -44,6 +44,7 @@ namespace Auto_Club
                     }
                 }
             }
+            comboBox1.SelectedIndex = 0;
         }
 
 
@@ -54,14 +55,12 @@ namespace Auto_Club
             {
                 conn.Open();
                 string query = "select * from cars where 1=1 ";
-                if (comboBox1.SelectedItem.ToString() == "All")
-                {
-                    query += "car_number = @carnum";
-                }
+                query += "AND car_number = @carnum";
                 //string car_num = textBox1.Text.Trim();
                 string car_num = comboBox1.SelectedItem.ToString();
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
+
                     cmd.Parameters.AddWithValue("@carnum", car_num);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
@@ -114,7 +113,8 @@ namespace Auto_Club
                 MessageBox.Show("Car Not Available");
                 return;
             }
-            string car_num = textBox1.Text.Trim();
+            //string car_num = textBox1.Text.Trim();
+            string car_num = comboBox1.SelectedItem.ToString();
             Customer customer = new Customer(car_num);
             customer.FormClosed += (s, args) => this.Close();
             this.Hide();

@@ -118,7 +118,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(796, 353);
+            ClientSize = new Size(796, 387);
             Controls.Add(label12);
             Controls.Add(label11);
             Controls.Add(dateTimePicker2);

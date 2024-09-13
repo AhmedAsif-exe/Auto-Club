@@ -6,6 +6,8 @@ CREATE TABLE users (
 	user_name VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL
 );
+
+insert into users (user_name , password) values('Admin' ,'Admin');
 CREATE TABLE cars (
     car_number VARCHAR(20) PRIMARY KEY,
     maker VARCHAR(50),
@@ -135,3 +137,12 @@ update cars
 set status = 'Available'
 where status is NULL
 select * from users
+
+
+
+SELECT name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date 
+FROM customer_cars cc
+INNER JOIN customers c ON cc.customer_id = c.customer_id
+INNER JOIN cars ON cc.car_id = cars.car_number
+WHERE cc.rental_date BETWEEN '2024-09-13' AND '2024-09-21';
+

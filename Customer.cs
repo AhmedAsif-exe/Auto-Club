@@ -211,5 +211,15 @@ namespace Auto_Club
         private void label12_Click(object sender, EventArgs e)
         {
         }
+
+        private void Customer_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

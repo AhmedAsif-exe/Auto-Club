@@ -29,7 +29,8 @@ namespace Auto_Club
         }
         void get_car()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            //Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
@@ -53,7 +54,7 @@ namespace Auto_Club
         }
         void get_customers()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
@@ -77,7 +78,7 @@ namespace Auto_Club
         }
         void save_to_db()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
@@ -142,7 +143,7 @@ namespace Auto_Club
             e.Graphics.DrawString("Phone Number: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 9));
             e.Graphics.DrawString("Residential Address: _______________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 10));
             e.Graphics.DrawString("Phone Address: ___________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 11));
-           
+
             e.Graphics.DrawString("Guarantor Information", sectionFont, brush, startX, startY + (lineHeight * 13));
             e.Graphics.DrawString("Name: _______________________________", regularFont, brush, startX, startY + (lineHeight * 14));
             e.Graphics.DrawString("Father's/Husband's Name: _____________________", regularFont, brush, startX + 350, startY + (lineHeight * 14));
@@ -167,7 +168,7 @@ namespace Auto_Club
             e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX, startY + (lineHeight * 30));
             e.Graphics.DrawString("Total Amount: ______________________________", regularFont, brush, startX, startY + (lineHeight * 31));
 
-           
+
             // Signatures
             e.Graphics.DrawString("Signatures", sectionFont, brush, startX, startY + (lineHeight * 32));
             e.Graphics.DrawString("Customer: _____________________________", regularFont, brush, startX, startY + (lineHeight * 33));
@@ -199,6 +200,11 @@ namespace Auto_Club
             //customer.Show();
 
             this.Close();
+
+        }
+
+        private void RentSummary_Load(object sender, EventArgs e)
+        {
 
         }
     }

@@ -362,6 +362,7 @@
             Controls.Add(button1);
             //Name = "RentSummary";
             Text = "RentSummary";
+            Load += RentSummary_Load;
             ResumeLayout(false);
             PerformLayout();
         }
