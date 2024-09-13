@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SqlClient; using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,7 +27,7 @@ namespace Auto_Club
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return;
 
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
