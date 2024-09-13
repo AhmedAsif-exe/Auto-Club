@@ -17,12 +17,12 @@ namespace Auto_Club
         {
             InitializeComponent();
 
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
-                
+
             }
         }
 
@@ -33,7 +33,7 @@ namespace Auto_Club
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return;
 
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
@@ -55,20 +55,31 @@ namespace Auto_Club
 
                     if (hashed_password == "")
                         return;
-                    bool correct = BCrypt.Net.BCrypt.EnhancedVerify(password, hashed_password);
+                    //bool correct = BCrypt.Net.BCrypt.EnhancedVerify(password, hashed_password);
 
 
-                    if (correct == true)
+                    if (hashed_password == password)
                     {
                         Dashboard dashboard = new Dashboard();
-                        this.Hide();
+                        dashboard.FormClosed += (s, args) => this.Close();
                         dashboard.Show();
+                        this.Hide();
                     }
                     else
                         MessageBox.Show("Incorrect Password");
                 }
 
             }
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
 
         }
     }

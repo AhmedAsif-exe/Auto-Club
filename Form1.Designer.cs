@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
             label1 = new Label();
             button1 = new Button();
             maker = new Label();
@@ -41,14 +40,6 @@
             button3 = new Button();
             comboBox1 = new ComboBox();
             SuspendLayout();
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(259, 16);
-            textBox1.Margin = new Padding(2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(255, 23);
-            textBox1.TabIndex = 1;
             // 
             // label1
             // 
@@ -70,7 +61,7 @@
             button1.Name = "button1";
             button1.Size = new Size(80, 28);
             button1.TabIndex = 3;
-            button1.Text = "SEARCH";
+            button1.Text = "Select";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -145,12 +136,12 @@
             // 
             button2.AutoSize = true;
             button2.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            button2.Location = new Point(631, 318);
+            button2.Location = new Point(559, 285);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(78, 28);
             button2.TabIndex = 12;
-            button2.Text = "RENT";
+            button2.Text = "Rent";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -179,7 +170,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(796, 353);
+            ClientSize = new Size(800, 353);
             Controls.Add(comboBox1);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -191,7 +182,6 @@
             Controls.Add(maker);
             Controls.Add(button1);
             Controls.Add(label1);
-            Controls.Add(textBox1);
             Margin = new Padding(2);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -202,7 +192,6 @@
         }
 
         #endregion
-        private TextBox textBox1;
         private Label label1;
         private Button button1;
         private Label maker;

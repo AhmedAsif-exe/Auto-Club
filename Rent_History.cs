@@ -32,7 +32,7 @@ namespace Auto_Club
 
             string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             string FromDate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-            string ToDate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+            string ToDate = dateTimePicker2.Value.ToString("yyyy-MM-dd");
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();

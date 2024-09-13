@@ -59,7 +59,8 @@ namespace Auto_Club
         }
         void get_car()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            //Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
@@ -89,7 +90,7 @@ namespace Auto_Club
         }
         void get_customers()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
@@ -128,7 +129,7 @@ namespace Auto_Club
         }
         void save_to_db()
         {
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
@@ -253,6 +254,11 @@ namespace Auto_Club
             //customer.Show();
 
             this.Close();
+
+        }
+
+        private void RentSummary_Load(object sender, EventArgs e)
+        {
 
         }
     }

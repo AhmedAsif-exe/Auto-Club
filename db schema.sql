@@ -6,6 +6,8 @@ CREATE TABLE users (
 	user_name VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL
 );
+
+insert into users (user_name , password) values('Admin' ,'Admin');
 CREATE TABLE cars (
     car_number VARCHAR(20) PRIMARY KEY,
     maker VARCHAR(50),
