@@ -40,6 +40,7 @@ namespace Auto_Club
 
         public string rental_date;
         public string return_date;
+        public string destination;
     }
     public partial class RentSummary : Form
     {
@@ -153,6 +154,7 @@ namespace Auto_Club
                     state.rental_date = rental_date.ToString("yyyy-MM-dd hh:m tt");
                     state.return_date = return_date.ToString("yyyy-MM-dd hh:m tt");
                     state.date = DateTime.Now.ToString("yyyy-MM-dd");
+                    state.destination = des;
                 }
 
                 string query_2 = @"update cars 
@@ -170,8 +172,25 @@ namespace Auto_Club
 
             }
         }
+
+        private void DrawUnderline(Graphics g, float startX, float startY, float length)
+        {
+            using (Pen pen = new Pen(Color.Black, 1))
+            {
+                g.DrawLine(pen, startX, startY, startX + length, startY);
+            }
+        }
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
+            // Define fonts
+            Font titleFont = new Font("Arial", 14, FontStyle.Bold);
+            Font sectionFont = new Font("Arial", 12, FontStyle.Bold);
+            Font regularFont = new Font("Arial", 10, FontStyle.Regular);
+
+            // Define brush
+            Brush brush = Brushes.Black;
+
+            // Define margins
             // Set up the fonts and formatting
             Font titleFont = new Font("Arial", 20, FontStyle.Bold);
             Font sectionFont = new Font("Arial", 14, FontStyle.Underline);
@@ -189,48 +208,51 @@ namespace Auto_Club
             e.Graphics.DrawString("0333-4560077 | 0313-5555477", regularFont, brush, startX, startY + (lineHeight * 2));
 
             // Rental Agreement Number and Date
-            e.Graphics.DrawString($"Rental Agreement No: {state.rental_id}", regularFont, brush, startX, startY + (lineHeight * 4));
-            e.Graphics.DrawString($"Date: {state.date}", regularFont, brush, startX, startY + (lineHeight * 5));
+            e.Graphics.DrawString("Rental Agreement No: ___________________", regularFont, brush, startX, startY + (lineHeight * 4));
+            e.Graphics.DrawString("Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 5));
 
             // Customer Information
             e.Graphics.DrawString("Customer Information", sectionFont, brush, startX, startY + (lineHeight * 7));
-            e.Graphics.DrawString($"Name: {state.name}", regularFont, brush, startX, startY + (lineHeight * 8));
-            e.Graphics.DrawString($"Father's/Husband's Name: {state.parent_name}", regularFont, brush, startX + 350, startY + (lineHeight * 8));
-            e.Graphics.DrawString($"CNIC Number: {state.cnic}", regularFont, brush, startX, startY + (lineHeight * 9));
-            e.Graphics.DrawString($"Phone Number: {state.phone_number}", regularFont, brush, startX + 350, startY + (lineHeight * 9));
-            e.Graphics.DrawString($"Residential Address: {state.residence}", regularFont, brush, startX, startY + (lineHeight * 10));
-            e.Graphics.DrawString($"Phone Address: {state.phone_address}", regularFont, brush, startX, startY + (lineHeight * 11));
+            e.Graphics.DrawString("Name: _______________________________", regularFont, brush, startX, startY + (lineHeight * 8));
+            e.Graphics.DrawString("Father's/Husband's Name: _____________________", regularFont, brush, startX + 350, startY + (lineHeight * 8));
+            e.Graphics.DrawString("CNIC Number: ________________________", regularFont, brush, startX, startY + (lineHeight * 9));
+            e.Graphics.DrawString("Phone Number: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 9));
+            e.Graphics.DrawString("Residential Address: _______________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 10));
+            e.Graphics.DrawString("Phone Address: ___________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 11));
 
             e.Graphics.DrawString("Guarantor Information", sectionFont, brush, startX, startY + (lineHeight * 13));
-            e.Graphics.DrawString($"Name: {state.g_name}", regularFont, brush, startX, startY + (lineHeight * 14));
-            e.Graphics.DrawString($"Father's/Husband's Name: {state.g_parent_name}", regularFont, brush, startX + 350, startY + (lineHeight * 14));
-            e.Graphics.DrawString($"CNIC Number: {state.g_cnic}", regularFont, brush, startX, startY + (lineHeight * 15));
-            e.Graphics.DrawString($"Phone Number: {state.g_phone_number}", regularFont, brush, startX + 350, startY + (lineHeight * 15));
-            e.Graphics.DrawString($"Residential Address: {state.g_residence}", regularFont, brush, startX, startY + (lineHeight * 16));
-            e.Graphics.DrawString($"Phone Address: {state.g_phone_address}", regularFont, brush, startX, startY + (lineHeight * 17));
+            e.Graphics.DrawString("Name: _______________________________", regularFont, brush, startX, startY + (lineHeight * 14));
+            e.Graphics.DrawString("Father's/Husband's Name: _____________________", regularFont, brush, startX + 350, startY + (lineHeight * 14));
+            e.Graphics.DrawString("CNIC Number: ________________________", regularFont, brush, startX, startY + (lineHeight * 15));
+            e.Graphics.DrawString("Phone Number: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 15));
+            e.Graphics.DrawString("Residential Address: _______________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 16));
+            e.Graphics.DrawString("Phone Address: ___________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 17));
 
             // Vehicle Information
-            e.Graphics.DrawString("Vehicle Information", sectionFont, brush, startX, startY + (lineHeight * 19));
-            e.Graphics.DrawString($"Registration Number: {state.carNum}", regularFont, brush, startX, startY + (lineHeight * 20));
-            e.Graphics.DrawString($"Make: {state.maker}", regularFont, brush, startX + 400, startY + (lineHeight * 20));
-            e.Graphics.DrawString($"Model: {state.model}", regularFont, brush, startX, startY + (lineHeight * 21));
-            e.Graphics.DrawString($"Engine Number: {state.engine_num}", regularFont, brush, startX + 400, startY + (lineHeight * 21));
-            e.Graphics.DrawString($"Chassis Number: {state.chassis_num}", regularFont, brush, startX, startY + (lineHeight * 22));
-            e.Graphics.DrawString($"Color: _______________________________________", regularFont, brush, startX + 400, startY + (lineHeight * 22));
+            e.Graphics.DrawString("Vehicle Information", sectionFont, brush, startX, startY + (lineHeight * 20));
+            e.Graphics.DrawString("Registration Number: ____________________________", regularFont, brush, startX, startY + (lineHeight * 21));
+            e.Graphics.DrawString("Make: ________________________________________", regularFont, brush, startX, startY + (lineHeight * 22));
+            e.Graphics.DrawString("Model: _______________________________________", regularFont, brush, startX, startY + (lineHeight * 23));
+            e.Graphics.DrawString("Engine Number: _______________________________", regularFont, brush, startX, startY + (lineHeight * 24));
+            e.Graphics.DrawString("Chassis Number: ______________________________", regularFont, brush, startX, startY + (lineHeight * 25));
+            e.Graphics.DrawString("Color: _______________________________________", regularFont, brush, startX, startY + (lineHeight * 26));
 
-            e.Graphics.DrawString($"Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 23));
-            e.Graphics.DrawString($"Rental End Date: ____________________________", regularFont, brush, startX + 400, startY + (lineHeight * 23));
-            e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX, startY + (lineHeight * 24));
-            e.Graphics.DrawString("Total Amount: ______________________________", regularFont, brush, startX + 400, startY + (lineHeight * 24));
+            // Rental Details
+            e.Graphics.DrawString("Rental Details", sectionFont, brush, startX, startY + (lineHeight * 27));
+            e.Graphics.DrawString("Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 28));
+            e.Graphics.DrawString("Rental End Date: ____________________________", regularFont, brush, startX, startY + (lineHeight * 29));
+            e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX, startY + (lineHeight * 30));
+            e.Graphics.DrawString("Total Amount: ______________________________", regularFont, brush, startX, startY + (lineHeight * 31));
 
 
             // Signatures
-            e.Graphics.DrawString("Signatures", sectionFont, brush, startX, startY + (lineHeight * 26));
-            e.Graphics.DrawString("Customer: _____________________________", regularFont, brush, startX, startY + (lineHeight * 27));
-            e.Graphics.DrawString("Witness: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 27));
-            e.Graphics.DrawString("Company Representative: __________________", regularFont, brush, startX, startY + (lineHeight * 28));
+            e.Graphics.DrawString("Signatures", sectionFont, brush, startX, startY + (lineHeight * 32));
+            e.Graphics.DrawString("Customer: _____________________________", regularFont, brush, startX, startY + (lineHeight * 33));
+            e.Graphics.DrawString("Witness: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 33));
+            e.Graphics.DrawString("Company Representative: __________________", regularFont, brush, startX, startY + (lineHeight * 34));
         }
-        private void button3_Click(object sender, EventArgs e)
+    
+    private void button3_Click(object sender, EventArgs e)
         {
             save_to_db();
 
