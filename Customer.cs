@@ -89,6 +89,17 @@ namespace Auto_Club
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        void handle_duplicated_key_error()
+        {
+            DialogResult result = MessageBox.Show("The provided CNIC already exists in our records. Is this the same individual?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+           
+            // Check the result of the user's choice
+            if (result == DialogResult.Yes)
+            {
+                // User clicked Yes
+                MessageBox.Show("You selected Yes.");
+            }
+        }
         string TranslateSqlException(SqlException ex)
         {
             switch (ex.Number)

@@ -28,7 +28,7 @@ CREATE TABLE customers (
     
     guarantor_name VARCHAR(100) Not NUll,      -- Guarantor's name
     guarantor_parent_name VARCHAR(100), -- Guarantor's parent name
-    guarantor_cnic VARCHAR(15) UNIQUE Not NUll, -- Guarantor's CNIC (unique)
+    guarantor_cnic VARCHAR(15) Not NUll, -- Guarantor's CNIC (unique)
     guarantor_phone_number VARCHAR(20) Not NUll, -- Guarantor's phone number
     guarantor_phone_residence VARCHAR(20) ,     -- Guarantor's phone residence
     guarantor_current_residence VARCHAR(255) Not NUll -- Guarantor's current residence
@@ -39,13 +39,13 @@ CREATE TABLE customer_cars (
     car_id VARCHAR(20) NOT NULL,                -- Car ID (foreign key)
     rental_date DATETIME NOT NULL,              -- Date and time when the car was rented
     return_date DATETIME,                       -- Date and time when the car was returned (nullable)
-
+	destination varchar(200),
     -- Foreign key constraints
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
     FOREIGN KEY (car_id) REFERENCES cars(car_number)
 );
-
-
+drop table customers
+drop table customer_cars
 INSERT INTO cars (car_number, maker, model, engine_number, chassis_number, color) VALUES
 ('NA-277', 'RECO', '2022', '1GD5206292', 'GUN126R-5555813', 'Red'),
 ('AQV-765', 'REVO', '2020', '1GD07955448', 'GUN126R-5539022', 'Blue'),
@@ -130,8 +130,10 @@ INSERT INTO cars (car_number, maker, model, engine_number, chassis_number, color
 ('ABB-487', 'ALTO', '2019', '6R232867', 'NF1AET306H1030904', 'Beige'),
 ('AY-782', 'ALTO', '2021', '6R231208', 'NF1AET306H1064740', 'Pink');
 
-
+select * from customers
 update cars
 set status = 'Available'
 where status is NULL
 select * from users
+
+select * from customer_cars
