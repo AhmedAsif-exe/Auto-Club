@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SqlClient; using System.Configuration;
 using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
@@ -58,7 +58,7 @@ namespace Auto_Club
         private void button1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
             string car_number = textBox1.Text.Trim();
             using (SqlConnection conn = new SqlConnection(connection_string))
             {

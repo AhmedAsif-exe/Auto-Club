@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using System.Data.SqlClient; using System.Configuration;
 using System.Configuration;
 
 namespace Auto_Club
@@ -25,7 +25,7 @@ namespace Auto_Club
 
 
 
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
@@ -50,7 +50,7 @@ namespace Auto_Club
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();

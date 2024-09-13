@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SqlClient; using System.Configuration;
 using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace Auto_Club
         }
         void get_data(string car_num)
         {
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
@@ -83,7 +83,7 @@ namespace Auto_Club
                 return;
             if (String.IsNullOrEmpty(chassis_number))
                 return;
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
 
             string query = "UPDATE cars SET " +
                     "maker = @maker, " +

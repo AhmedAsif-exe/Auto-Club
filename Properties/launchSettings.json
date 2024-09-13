@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Auto Club": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DB_CONNECTION_STRING": "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True"
+      }
+    }
+  }
+}
