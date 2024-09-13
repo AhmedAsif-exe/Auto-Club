@@ -12,8 +12,39 @@ using System.Windows.Forms;
 
 namespace Auto_Club
 {
+    struct Summary_state
+    {
+
+        public string rental_id;
+        public string date;
+        public string carNum;
+        public string maker;
+        public string model;
+        public string engine_num;
+        public string chassis_num;
+        public string color;
+
+        public string name;
+        public string parent_name;
+        public string cnic;
+        public string phone_number;
+        public string residence;
+        public string phone_address;
+
+        public string g_name;
+        public string g_parent_name;
+        public string g_cnic;
+        public string g_phone_number;
+        public string g_residence;
+        public string g_phone_address;
+
+        public string rental_date;
+        public string return_date;
+        public string destination;
+    }
     public partial class RentSummary : Form
     {
+        Summary_state state;
         string car_num;
         int customer_id;
         public RentSummary(string car_num, int customer_id)
@@ -35,7 +66,7 @@ namespace Auto_Club
             {
                 connection.Open();
 
-                string query = @"select car_number, maker, model, engine_number, chassis_number from cars where car_number = @car_number";
+                string query = @"select car_number, maker, model, engine_number, chassis_number, color from cars where car_number = @car_number";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@car_number", car_num);
@@ -44,10 +75,16 @@ namespace Auto_Club
                     while (reader.Read())
                     {
                         carNum.Text = reader.GetString(0);
+                        state.carNum = carNum.Text;
                         Maker.Text = reader.GetString(1);
+                        state.maker = Maker.Text;
                         Model.Text = reader.GetString(2);
+                        state.model = Model.Text;
                         EngineNumber.Text = reader.GetString(3);
+                        state.engine_num = EngineNumber.Text;
                         Chassis.Text = reader.GetString(4);
+                        state.chassis_num = Chassis.Text;
+                        state.color = reader.GetString(5);
                     }
                 }
             }
@@ -59,7 +96,7 @@ namespace Auto_Club
             {
                 connection.Open();
 
-                string query = @"select name, cnic, phone_number, guarantor_name,  guarantor_phone_number from customers where customer_id = @customer_id";
+                string query = @"select * from customers where customer_id = @customer_id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@customer_id", customer_id);
@@ -67,11 +104,26 @@ namespace Auto_Club
 
                     while (reader.Read())
                     {
-                        Name.Text = reader.GetString(0);
-                        cnic.Text = reader.GetString(1);
-                        phone_number.Text = reader.GetString(2);
-                        guarantor_name.Text = reader.GetString(3);
-                        guarantor_phone.Text = reader.GetString(4);
+                        Name.Text = reader["name"].ToString();
+                        state.name = Name.Text;
+                        state.parent_name = reader["parent_name"].ToString();
+                        state.phone_address = reader["phone_residence"].ToString();
+
+                        cnic.Text = reader["cnic"].ToString();
+                        state.cnic = cnic.Text;
+                        phone_number.Text = reader["phone_number"].ToString();
+                        state.phone_number = phone_number.Text;
+                        state.residence = reader["current_residence"].ToString();
+
+                        guarantor_name.Text = reader["guarantor_name"].ToString();
+                        state.g_name = guarantor_name.Text;
+                        guarantor_phone.Text = reader["guarantor_phone_number"].ToString();
+                        state.g_phone_number = guarantor_phone.Text;
+                        state.g_cnic = reader["guarantor_cnic"].ToString();
+                        state.g_residence = reader["guarantor_current_residence"].ToString();
+                        state.g_parent_name = reader["guarantor_parent_name"].ToString();
+                        state.g_phone_address = reader["guarantor_phone_residence"].ToString();
+
                     }
                 }
             }
@@ -83,19 +135,26 @@ namespace Auto_Club
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
-                string rental_date = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-                string return_date = dateTimePicker2.Value.ToString("yyyy-MM-dd");
-
-                string query = "INSERT INTO customer_cars (customer_id, car_id, rental_date, return_date) " +
-                                                  "VALUES (@customer_id, @car_id, @rental_date, @return_date)";
+                DateTime rental_date = dateTimePicker1.Value;
+                DateTime return_date = dateTimePicker2.Value;
+                string des = destination.Text.Trim();
+                string query = "INSERT INTO customer_cars (customer_id, car_id, rental_date, return_date, destination) " +
+                                                  "VALUES (@customer_id, @car_id, @rental_date, @return_date, @destination)" +
+                                                  "SELECT SCOPE_IDENTITY();";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@customer_id", this.customer_id);
                     cmd.Parameters.AddWithValue("@car_id", this.car_num);
                     cmd.Parameters.AddWithValue("@rental_date", rental_date);
                     cmd.Parameters.AddWithValue("@return_date", return_date);
+                    cmd.Parameters.AddWithValue("@destination", string.IsNullOrEmpty(des) ? "N/A" : des);
 
-                    cmd.ExecuteNonQuery();
+                    var newId = cmd.ExecuteScalar();
+                    state.rental_id = newId.ToString();
+                    state.rental_date = rental_date.ToString("yyyy-MM-dd hh:m tt");
+                    state.return_date = return_date.ToString("yyyy-MM-dd hh:m tt");
+                    state.date = DateTime.Now.ToString("yyyy-MM-dd");
+                    state.destination = des;
                 }
 
                 string query_2 = @"update cars 
@@ -113,8 +172,25 @@ namespace Auto_Club
 
             }
         }
+
+        private void DrawUnderline(Graphics g, float startX, float startY, float length)
+        {
+            using (Pen pen = new Pen(Color.Black, 1))
+            {
+                g.DrawLine(pen, startX, startY, startX + length, startY);
+            }
+        }
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
+            // Define fonts
+            Font titleFont = new Font("Arial", 14, FontStyle.Bold);
+            Font sectionFont = new Font("Arial", 12, FontStyle.Bold);
+            Font regularFont = new Font("Arial", 10, FontStyle.Regular);
+
+            // Define brush
+            Brush brush = Brushes.Black;
+
+            // Define margins
             // Set up the fonts and formatting
             Font titleFont = new Font("Arial", 20, FontStyle.Bold);
             Font sectionFont = new Font("Arial", 14, FontStyle.Underline);
@@ -175,7 +251,8 @@ namespace Auto_Club
             e.Graphics.DrawString("Witness: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 33));
             e.Graphics.DrawString("Company Representative: __________________", regularFont, brush, startX, startY + (lineHeight * 34));
         }
-        private void button3_Click(object sender, EventArgs e)
+    
+    private void button3_Click(object sender, EventArgs e)
         {
             save_to_db();
 
@@ -188,9 +265,7 @@ namespace Auto_Club
                 printDocument1.Print();
             }
 
-            Dashboard dashboard = new Dashboard();
-            this.Hide();
-            dashboard.Show();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)

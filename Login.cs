@@ -17,13 +17,7 @@ namespace Auto_Club
         {
             InitializeComponent();
 
-            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
-
-            using (SqlConnection conn = new SqlConnection(connection_string))
-            {
-                conn.Open();
-
-            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -6,8 +6,6 @@ CREATE TABLE users (
 	user_name VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL
 );
-
-insert into users (user_name , password) values('Admin' ,'Admin');
 CREATE TABLE cars (
     car_number VARCHAR(20) PRIMARY KEY,
     maker VARCHAR(50),
@@ -30,7 +28,7 @@ CREATE TABLE customers (
     
     guarantor_name VARCHAR(100) Not NUll,      -- Guarantor's name
     guarantor_parent_name VARCHAR(100), -- Guarantor's parent name
-    guarantor_cnic VARCHAR(15) UNIQUE Not NUll, -- Guarantor's CNIC (unique)
+    guarantor_cnic VARCHAR(15) Not NUll, -- Guarantor's CNIC (unique)
     guarantor_phone_number VARCHAR(20) Not NUll, -- Guarantor's phone number
     guarantor_phone_residence VARCHAR(20) ,     -- Guarantor's phone residence
     guarantor_current_residence VARCHAR(255) Not NUll -- Guarantor's current residence
@@ -41,13 +39,13 @@ CREATE TABLE customer_cars (
     car_id VARCHAR(20) NOT NULL,                -- Car ID (foreign key)
     rental_date DATETIME NOT NULL,              -- Date and time when the car was rented
     return_date DATETIME,                       -- Date and time when the car was returned (nullable)
-
+	destination varchar(200),
     -- Foreign key constraints
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
     FOREIGN KEY (car_id) REFERENCES cars(car_number)
 );
-
-
+drop table customers
+drop table customer_cars
 INSERT INTO cars (car_number, maker, model, engine_number, chassis_number, color) VALUES
 ('NA-277', 'RECO', '2022', '1GD5206292', 'GUN126R-5555813', 'Red'),
 ('AQV-765', 'REVO', '2020', '1GD07955448', 'GUN126R-5539022', 'Blue'),
@@ -132,17 +130,18 @@ INSERT INTO cars (car_number, maker, model, engine_number, chassis_number, color
 ('ABB-487', 'ALTO', '2019', '6R232867', 'NF1AET306H1030904', 'Beige'),
 ('AY-782', 'ALTO', '2021', '6R231208', 'NF1AET306H1064740', 'Pink');
 
-
+select * from customers
 update cars
 set status = 'Available'
 where status is NULL
 select * from users
+SELECT * FROM CUSTOMERS
+select * from customer_cars
+select * from customers
+SELECT customer_id, name 
 
-
-
-SELECT name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date 
-FROM customer_cars cc
-INNER JOIN customers c ON cc.customer_id = c.customer_id
-INNER JOIN cars ON cc.car_id = cars.car_number
-WHERE cc.rental_date BETWEEN '2024-09-13' AND '2024-09-21';
-
+SELECT rental_id, name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date, destination
+                                FROM customer_cars cc
+                                INNER JOIN customers c ON cc.customer_id = c.customer_id
+                                INNER JOIN cars ON cc.car_id = cars.car_number
+                                

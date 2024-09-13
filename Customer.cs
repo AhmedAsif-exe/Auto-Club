@@ -15,6 +15,7 @@ namespace Auto_Club
     public partial class Customer : Form
     {
         string car_num;
+        int id = -1;
         public Customer(string car_num)
         {
             InitializeComponent();
@@ -27,9 +28,9 @@ namespace Auto_Club
             //form.Show();
             this.Close();
         }
-        int save_customer()
+        void save_customer()
         {
-            int id = -1;
+
             try
             {
 
@@ -73,22 +74,69 @@ namespace Auto_Club
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(TranslateSqlException(ex));
+                if (ex.Number == 2627)
+                    handle_duplicated_key_error();
+                else
+                    MessageBox.Show(TranslateSqlException(ex));
             }
-            return id;
+
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            int customer_id = save_customer();
-            if (customer_id == -1) return;
+            save_customer();
+            MessageBox.Show(id.ToString());
+            if (id == -1) return;
             try
             {
-                RentSummary rentSummary = new RentSummary(car_num, customer_id);
+                RentSummary rentSummary = new RentSummary(car_num, id);
                 rentSummary.FormClosed += (s, args) => this.Close();
                 this.Hide();
                 rentSummary.Show();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        void handle_duplicated_key_error()
+        {
+            string name = "";
+            int customer_id = 0;
+           
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connection_string))
+            {
+                conn.Open();
+                string Cnic = cnic.Text.Trim();
+                string query = @"
+                                SELECT customer_id, name 
+                                FROM customers
+                                WHERE cnic = @cnic
+                                ";
+                try { 
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@cnic", Cnic);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                name = reader["name"].ToString();
+                                customer_id = Convert.ToInt32(reader["customer_id"].ToString());
+                            }
+                        }
+                    }
+                } catch(SqlException ex)
+                {
+
+                        MessageBox.Show(TranslateSqlException(ex));
+
+                }
+            }
+            DialogResult result = MessageBox.Show("The provided CNIC already exists in our records.\n Is this the same individual?\nName = " + name, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                this.id = customer_id;
+            }
+            
         }
         string TranslateSqlException(SqlException ex)
         {
