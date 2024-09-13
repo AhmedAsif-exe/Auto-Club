@@ -62,7 +62,7 @@ namespace Auto_Club
         private void button1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             string sub_name = textBox1.Text.Trim();
             using (SqlConnection conn = new SqlConnection(connection_string))
             {

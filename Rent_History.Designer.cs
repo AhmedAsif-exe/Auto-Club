@@ -31,10 +31,10 @@
             button2 = new Button();
             dataGridView1 = new DataGridView();
             button1 = new Button();
-            label12 = new Label();
-            label11 = new Label();
-            dateTimePicker2 = new DateTimePicker();
-            dateTimePicker1 = new DateTimePicker();
+            dateTimePicker3 = new DateTimePicker();
+            label1 = new Label();
+            label2 = new Label();
+            dateTimePicker4 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -42,91 +42,87 @@
             // 
             button2.AutoSize = true;
             button2.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            button2.Location = new Point(46, 25);
-            button2.Margin = new Padding(2);
+            button2.Location = new Point(44, 26);
             button2.Name = "button2";
-            button2.Size = new Size(78, 28);
+            button2.Size = new Size(111, 47);
             button2.TabIndex = 13;
             button2.Text = "BACK";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
             // 
             // dataGridView1
             // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(59, 92);
-            dataGridView1.Margin = new Padding(2);
+            dataGridView1.Location = new Point(44, 169);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.RowTemplate.Height = 33;
-            dataGridView1.Size = new Size(678, 216);
+            dataGridView1.Size = new Size(1531, 360);
             dataGridView1.TabIndex = 12;
             // 
             // button1
             // 
             button1.AutoSize = true;
             button1.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(681, 325);
-            button1.Margin = new Padding(2);
+            button1.Location = new Point(1460, 586);
             button1.Name = "button1";
-            button1.Size = new Size(80, 28);
+            button1.Size = new Size(115, 47);
             button1.TabIndex = 11;
             button1.Text = "SEARCH";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // label12
+            // dateTimePicker3
             // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label12.Location = new Point(449, 60);
-            label12.Margin = new Padding(2, 0, 2, 0);
-            label12.Name = "label12";
-            label12.Size = new Size(42, 26);
-            label12.TabIndex = 65;
-            label12.Text = "To:";
+            dateTimePicker3.CustomFormat = "MM/dd/yyyy hh:mm tt";
+            dateTimePicker3.Format = DateTimePickerFormat.Custom;
+            dateTimePicker3.Location = new Point(978, 100);
+            dateTimePicker3.Name = "dateTimePicker3";
+            dateTimePicker3.Size = new Size(300, 31);
+            dateTimePicker3.TabIndex = 69;
             // 
-            // label11
+            // label1
             // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(69, 60);
-            label11.Margin = new Padding(2, 0, 2, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(69, 26);
-            label11.TabIndex = 64;
-            label11.Text = "From:";
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(881, 96);
+            label1.Name = "label1";
+            label1.Size = new Size(64, 37);
+            label1.TabIndex = 68;
+            label1.Text = "To:";
             // 
-            // dateTimePicker2
+            // label2
             // 
-            dateTimePicker2.Location = new Point(509, 64);
-            dateTimePicker2.Margin = new Padding(2);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(211, 23);
-            dateTimePicker2.TabIndex = 63;
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(369, 94);
+            label2.Name = "label2";
+            label2.Size = new Size(102, 37);
+            label2.TabIndex = 67;
+            label2.Text = "From:";
             // 
-            // dateTimePicker1
+            // dateTimePicker4
             // 
-            dateTimePicker1.Location = new Point(162, 63);
-            dateTimePicker1.Margin = new Padding(2);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(211, 23);
-            dateTimePicker1.TabIndex = 62;
+            dateTimePicker4.CustomFormat = "MM/dd/yyyy hh:mm tt";
+            dateTimePicker4.Format = DateTimePickerFormat.Custom;
+            dateTimePicker4.Location = new Point(500, 100);
+            dateTimePicker4.Name = "dateTimePicker4";
+            dateTimePicker4.Size = new Size(300, 31);
+            dateTimePicker4.TabIndex = 66;
             // 
             // Rent_History
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(796, 387);
-            Controls.Add(label12);
-            Controls.Add(label11);
-            Controls.Add(dateTimePicker2);
-            Controls.Add(dateTimePicker1);
+            ClientSize = new Size(1627, 645);
+            Controls.Add(dateTimePicker3);
+            Controls.Add(label1);
+            Controls.Add(label2);
+            Controls.Add(dateTimePicker4);
             Controls.Add(button2);
             Controls.Add(dataGridView1);
             Controls.Add(button1);
-            Margin = new Padding(2);
             Name = "Rent_History";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Rent_History";
@@ -141,9 +137,9 @@
         private Button button2;
         private DataGridView dataGridView1;
         private Button button1;
-        private Label label12;
-        private Label label11;
-        private DateTimePicker dateTimePicker2;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimePicker3;
+        private Label label1;
+        private Label label2;
+        private DateTimePicker dateTimePicker4;
     }
 }

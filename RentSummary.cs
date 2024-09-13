@@ -15,31 +15,31 @@ namespace Auto_Club
     struct Summary_state
     {
 
-    public    string rental_id;
-    public    string date;
-    public    string carNum;
-    public    string maker;
-    public    string model;
-    public    string engine_num;
-    public    string chassis_num;
-    public    string color;
+        public string rental_id;
+        public string date;
+        public string carNum;
+        public string maker;
+        public string model;
+        public string engine_num;
+        public string chassis_num;
+        public string color;
 
-    public    string name;
-    public    string parent_name;
-    public    string cnic;
-    public    string phone_number;
-    public    string residence;
-    public    string phone_address;
+        public string name;
+        public string parent_name;
+        public string cnic;
+        public string phone_number;
+        public string residence;
+        public string phone_address;
 
-    public    string g_name;
-    public    string g_parent_name;
-    public    string g_cnic;
-    public    string g_phone_number;
-    public    string g_residence;
-    public    string g_phone_address;
-    
-    public    string rental_date;
-    public    string return_date;
+        public string g_name;
+        public string g_parent_name;
+        public string g_cnic;
+        public string g_phone_number;
+        public string g_residence;
+        public string g_phone_address;
+
+        public string rental_date;
+        public string return_date;
     }
     public partial class RentSummary : Form
     {
@@ -59,8 +59,8 @@ namespace Auto_Club
         }
         void get_car()
         {
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
-            //Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            //Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
@@ -90,7 +90,7 @@ namespace Auto_Club
         }
         void get_customers()
         {
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
                 connection.Open();
@@ -113,7 +113,7 @@ namespace Auto_Club
                         phone_number.Text = reader["phone_number"].ToString();
                         state.phone_number = phone_number.Text;
                         state.residence = reader["current_residence"].ToString();
-                        
+
                         guarantor_name.Text = reader["guarantor_name"].ToString();
                         state.g_name = guarantor_name.Text;
                         guarantor_phone.Text = reader["guarantor_phone_number"].ToString();
@@ -129,16 +129,16 @@ namespace Auto_Club
         }
         void save_to_db()
         {
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
-                string rental_date = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-                string return_date = dateTimePicker2.Value.ToString("yyyy-MM-dd");
-
-                string query = "INSERT INTO customer_cars (customer_id, car_id, rental_date, return_date) " +
-                                                  "VALUES (@customer_id, @car_id, @rental_date, @return_date)" +
+                DateTime rental_date = dateTimePicker1.Value;
+                DateTime return_date = dateTimePicker2.Value;
+                string des = destination.Text.Trim();
+                string query = "INSERT INTO customer_cars (customer_id, car_id, rental_date, return_date, destination) " +
+                                                  "VALUES (@customer_id, @car_id, @rental_date, @return_date, @destination)" +
                                                   "SELECT SCOPE_IDENTITY();";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -146,12 +146,13 @@ namespace Auto_Club
                     cmd.Parameters.AddWithValue("@car_id", this.car_num);
                     cmd.Parameters.AddWithValue("@rental_date", rental_date);
                     cmd.Parameters.AddWithValue("@return_date", return_date);
+                    cmd.Parameters.AddWithValue("@destination", string.IsNullOrEmpty(des) ? "N/A" : des);
 
                     var newId = cmd.ExecuteScalar();
                     state.rental_id = newId.ToString();
-                    state.rental_date = rental_date;
-                    state.return_date = return_date;
-                    state.date = rental_date;
+                    state.rental_date = rental_date.ToString("yyyy-MM-dd hh:m tt");
+                    state.return_date = return_date.ToString("yyyy-MM-dd hh:m tt");
+                    state.date = DateTime.Now.ToString("yyyy-MM-dd");
                 }
 
                 string query_2 = @"update cars 
@@ -199,7 +200,7 @@ namespace Auto_Club
             e.Graphics.DrawString($"Phone Number: {state.phone_number}", regularFont, brush, startX + 350, startY + (lineHeight * 9));
             e.Graphics.DrawString($"Residential Address: {state.residence}", regularFont, brush, startX, startY + (lineHeight * 10));
             e.Graphics.DrawString($"Phone Address: {state.phone_address}", regularFont, brush, startX, startY + (lineHeight * 11));
-           
+
             e.Graphics.DrawString("Guarantor Information", sectionFont, brush, startX, startY + (lineHeight * 13));
             e.Graphics.DrawString($"Name: {state.g_name}", regularFont, brush, startX, startY + (lineHeight * 14));
             e.Graphics.DrawString($"Father's/Husband's Name: {state.g_parent_name}", regularFont, brush, startX + 350, startY + (lineHeight * 14));
@@ -214,7 +215,7 @@ namespace Auto_Club
             e.Graphics.DrawString($"Make: {state.maker}", regularFont, brush, startX + 400, startY + (lineHeight * 20));
             e.Graphics.DrawString($"Model: {state.model}", regularFont, brush, startX, startY + (lineHeight * 21));
             e.Graphics.DrawString($"Engine Number: {state.engine_num}", regularFont, brush, startX + 400, startY + (lineHeight * 21));
-            e.Graphics.DrawString($"Chassis Number: {state.chassis_num}", regularFont, brush, startX,startY + (lineHeight * 22));
+            e.Graphics.DrawString($"Chassis Number: {state.chassis_num}", regularFont, brush, startX, startY + (lineHeight * 22));
             e.Graphics.DrawString($"Color: _______________________________________", regularFont, brush, startX + 400, startY + (lineHeight * 22));
 
             e.Graphics.DrawString($"Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 23));
@@ -242,9 +243,7 @@ namespace Auto_Club
                 printDocument1.Print();
             }
 
-            Dashboard dashboard = new Dashboard();
-            this.Hide();
-            dashboard.Show();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)

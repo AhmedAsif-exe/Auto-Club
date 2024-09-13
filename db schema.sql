@@ -6,8 +6,6 @@ CREATE TABLE users (
 	user_name VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL
 );
-
-insert into users (user_name , password) values('Admin' ,'Admin');
 CREATE TABLE cars (
     car_number VARCHAR(20) PRIMARY KEY,
     maker VARCHAR(50),
@@ -137,5 +135,13 @@ update cars
 set status = 'Available'
 where status is NULL
 select * from users
-
+SELECT * FROM CUSTOMERS
 select * from customer_cars
+select * from customers
+SELECT customer_id, name 
+
+SELECT rental_id, name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date, destination
+                                FROM customer_cars cc
+                                INNER JOIN customers c ON cc.customer_id = c.customer_id
+                                INNER JOIN cars ON cc.car_id = cars.car_number
+                                

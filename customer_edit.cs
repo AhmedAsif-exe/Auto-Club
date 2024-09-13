@@ -23,7 +23,7 @@ namespace Auto_Club
         }
         void get_data(int customer_id)
         {
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
@@ -70,7 +70,7 @@ namespace Auto_Club
             try
             {
 
-                string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+                string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
                 using (SqlConnection conn = new SqlConnection(connection_string))
                 {
                     conn.Open();

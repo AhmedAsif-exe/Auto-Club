@@ -24,7 +24,7 @@ namespace Auto_Club
         }
         void get_data(string car_num)
         {
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
@@ -83,7 +83,7 @@ namespace Auto_Club
                 return;
             if (String.IsNullOrEmpty(chassis_number))
                 return;
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
             string query = "UPDATE cars SET " +
                     "maker = @maker, " +

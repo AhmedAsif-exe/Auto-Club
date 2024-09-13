@@ -42,7 +42,7 @@ namespace Auto_Club
                 return;
             if (String.IsNullOrEmpty(chassis_number))
                 return;
-            string connection_string = "Data Source=PROGRAMMACHINE\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
 
             string query = "INSERT INTO cars (car_number, maker, model, engine_number, chassis_number, color, status) " +
                             "VALUES (@car_number, @maker, @model, @engine_number, @chassis_number, @color, @status)";
