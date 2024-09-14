@@ -74,17 +74,23 @@ namespace Auto_Club
 
                     while (reader.Read())
                     {
-                        carNum.Text = reader.GetString(0);
+                        carNum.Text = reader.IsDBNull(0) ? "N/A" : reader.GetString(0);
                         state.carNum = carNum.Text;
-                        Maker.Text = reader.GetString(1);
+
+                        Maker.Text = reader.IsDBNull(1) ? "N/A" : reader.GetString(1);
                         state.maker = Maker.Text;
-                        Model.Text = reader.GetString(2);
+
+                        Model.Text = reader.IsDBNull(2) ? "N/A" : reader.GetString(2);
                         state.model = Model.Text;
-                        EngineNumber.Text = reader.GetString(3);
+
+                        EngineNumber.Text = reader.IsDBNull(3) ? "N/A" : reader.GetString(3);
                         state.engine_num = EngineNumber.Text;
-                        Chassis.Text = reader.GetString(4);
+
+                        Chassis.Text = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
                         state.chassis_num = Chassis.Text;
-                        state.color = reader.GetString(5);
+
+                        // Assuming color is the 6th column
+                        state.color = reader.IsDBNull(5) ? "N/A" : reader.GetString(5);
                     }
                 }
             }
@@ -183,12 +189,7 @@ namespace Auto_Club
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
             // Define fonts
-            Font titleFont = new Font("Arial", 14, FontStyle.Bold);
-            Font sectionFont = new Font("Arial", 12, FontStyle.Bold);
-            Font regularFont = new Font("Arial", 10, FontStyle.Regular);
-
-            // Define brush
-            Brush brush = Brushes.Black;
+           
 
             // Define margins
             // Set up the fonts and formatting
@@ -230,26 +231,28 @@ namespace Auto_Club
 
             // Vehicle Information
             e.Graphics.DrawString("Vehicle Information", sectionFont, brush, startX, startY + (lineHeight * 20));
-            e.Graphics.DrawString("Registration Number: ____________________________", regularFont, brush, startX, startY + (lineHeight * 21));
-            e.Graphics.DrawString("Make: ________________________________________", regularFont, brush, startX, startY + (lineHeight * 22));
-            e.Graphics.DrawString("Model: _______________________________________", regularFont, brush, startX, startY + (lineHeight * 23));
-            e.Graphics.DrawString("Engine Number: _______________________________", regularFont, brush, startX, startY + (lineHeight * 24));
-            e.Graphics.DrawString("Chassis Number: ______________________________", regularFont, brush, startX, startY + (lineHeight * 25));
-            e.Graphics.DrawString("Color: _______________________________________", regularFont, brush, startX, startY + (lineHeight * 26));
+            string reg = "Registration Number: ________________________";
+            e.Graphics.DrawString(reg, regularFont, brush, startX, startY + (lineHeight * 21));
+            e.Graphics.DrawString("Make: ______________________________", regularFont, brush, startX + 390, startY + (lineHeight * 21));
+            string model = "Model: _______________________________";
+            e.Graphics.DrawString(model, regularFont, brush, startX, startY + (lineHeight * 22));
+            e.Graphics.DrawString("Engine Number: ___________________________", regularFont, brush, startX + 354, startY + (lineHeight * 22));
+            string chassis = "Chassis Number: ______________________";
+            e.Graphics.DrawString(chassis, regularFont, brush, startX, startY + (lineHeight * 23));
+            e.Graphics.DrawString("Color: ___________________________________", regularFont, brush, startX + 354, startY + (lineHeight * 23));
 
-            // Rental Details
-            e.Graphics.DrawString("Rental Details", sectionFont, brush, startX, startY + (lineHeight * 27));
-            e.Graphics.DrawString("Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 28));
-            e.Graphics.DrawString("Rental End Date: ____________________________", regularFont, brush, startX, startY + (lineHeight * 29));
-            e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX, startY + (lineHeight * 30));
-            e.Graphics.DrawString("Total Amount: ______________________________", regularFont, brush, startX, startY + (lineHeight * 31));
+            e.Graphics.DrawString("Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 24));
+            e.Graphics.DrawString("Rental End Date: _______________________", regularFont, brush, startX + 402, startY + (lineHeight * 24));
+            e.Graphics.DrawString("Destination: ____________________________", regularFont, brush, startX, startY + (lineHeight * 25));
+            e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX + 366, startY + (lineHeight * 25));
+            e.Graphics.DrawString("Total Amount: ___________________________", regularFont, brush, startX, startY + (lineHeight * 26));
 
 
             // Signatures
-            e.Graphics.DrawString("Signatures", sectionFont, brush, startX, startY + (lineHeight * 32));
-            e.Graphics.DrawString("Customer: _____________________________", regularFont, brush, startX, startY + (lineHeight * 33));
-            e.Graphics.DrawString("Witness: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 33));
-            e.Graphics.DrawString("Company Representative: __________________", regularFont, brush, startX, startY + (lineHeight * 34));
+            e.Graphics.DrawString("Signatures", sectionFont, brush, startX, startY + (lineHeight * 29));
+            e.Graphics.DrawString("Customer: _____________________________", regularFont, brush, startX, startY + (lineHeight * 30));
+            e.Graphics.DrawString("Witness: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 30));
+            e.Graphics.DrawString("Company Representative: __________________", regularFont, brush, startX, startY + (lineHeight * 31));
         }
     
     private void button3_Click(object sender, EventArgs e)

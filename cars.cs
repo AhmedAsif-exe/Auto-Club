@@ -119,5 +119,13 @@ namespace Auto_Club
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Add add = new Add();
+            add.FormClosed += (s, args) => this.Show();
+            add.Show();
+            this.Hide();
+        }
     }
 }

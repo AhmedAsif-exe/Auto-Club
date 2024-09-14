@@ -42,49 +42,46 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(78, 215);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(111, 358);
             label1.Name = "label1";
-            label1.Size = new Size(151, 29);
+            label1.Size = new Size(219, 40);
             label1.TabIndex = 7;
             label1.Text = "User Name:";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(224, 221);
-            textBox1.Margin = new Padding(2);
+            textBox1.Location = new Point(320, 368);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(212, 23);
+            textBox1.Size = new Size(301, 31);
             textBox1.TabIndex = 6;
+            textBox1.TextAlign = HorizontalAlignment.Center;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(91, 251);
-            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Location = new Point(130, 418);
             label2.Name = "label2";
-            label2.Size = new Size(135, 29);
+            label2.Size = new Size(194, 40);
             label2.TabIndex = 9;
             label2.Text = "Password:";
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(224, 257);
-            textBox2.Margin = new Padding(2);
+            textBox2.Location = new Point(320, 428);
             textBox2.Name = "textBox2";
             textBox2.PasswordChar = '*';
-            textBox2.Size = new Size(212, 23);
+            textBox2.Size = new Size(301, 31);
             textBox2.TabIndex = 8;
+            textBox2.TextAlign = HorizontalAlignment.Center;
             textBox2.TextChanged += textBox2_TextChanged;
             // 
             // button1
             // 
             button1.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(202, 298);
-            button1.Margin = new Padding(2);
+            button1.Location = new Point(289, 497);
             button1.Name = "button1";
-            button1.Size = new Size(88, 26);
+            button1.Size = new Size(126, 43);
             button1.TabIndex = 10;
             button1.Text = "LOGIN";
             button1.UseVisualStyleBackColor = true;
@@ -93,9 +90,10 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(82, -54);
+            pictureBox1.Location = new Point(117, -90);
+            pictureBox1.Margin = new Padding(4, 5, 4, 5);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(354, 334);
+            pictureBox1.Size = new Size(506, 557);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 11;
             pictureBox1.TabStop = false;
@@ -103,16 +101,15 @@
             // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(491, 353);
+            ClientSize = new Size(701, 588);
             Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(textBox2);
             Controls.Add(label1);
             Controls.Add(textBox1);
             Controls.Add(pictureBox1);
-            Margin = new Padding(2);
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";

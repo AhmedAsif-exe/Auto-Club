@@ -48,6 +48,7 @@
             button2.TabIndex = 13;
             button2.Text = "BACK";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // dataGridView1
             // 
