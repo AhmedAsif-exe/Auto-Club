@@ -207,12 +207,11 @@ namespace Auto_Club
             e.Graphics.DrawString("Auto Club Rent A Car", titleFont, brush, startX, startY);
             e.Graphics.DrawString("B-1, National Market, Satellite Town, Rawalpindi", regularFont, brush, startX, startY + lineHeight);
             e.Graphics.DrawString("0333-4560077 | 0313-5555477", regularFont, brush, startX, startY + (lineHeight * 2));
-
+            
             // Rental Agreement Number and Date
             e.Graphics.DrawString("Rental Agreement No: ___________________", regularFont, brush, startX, startY + (lineHeight * 4));
             e.Graphics.DrawString("Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 5));
 
-            // Customer Information
             e.Graphics.DrawString("Customer Information", sectionFont, brush, startX, startY + (lineHeight * 7));
             e.Graphics.DrawString("Name: _______________________________", regularFont, brush, startX, startY + (lineHeight * 8));
             e.Graphics.DrawString("Father's/Husband's Name: _____________________", regularFont, brush, startX + 350, startY + (lineHeight * 8));

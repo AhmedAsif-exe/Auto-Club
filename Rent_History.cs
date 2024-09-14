@@ -38,7 +38,7 @@ namespace Auto_Club
         private void button1_Click(object sender, EventArgs e)
         {
 
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
             DateTime FromDate = dateTimePicker4.Value;
             DateTime ToDate = dateTimePicker3.Value;
             using (SqlConnection conn = new SqlConnection(connection_string))
