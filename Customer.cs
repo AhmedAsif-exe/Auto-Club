@@ -100,7 +100,7 @@ namespace Auto_Club
             string name = "";
             int customer_id = 0;
            
-            string connection_string = "Data Source=DESKTOP-MAO1OJ0\\SQLEXPRESS;Initial Catalog=AutoClub;Integrated Security=True";
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();

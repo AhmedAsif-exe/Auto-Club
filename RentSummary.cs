@@ -188,8 +188,32 @@ namespace Auto_Club
         }
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
+            //Drawing image logo
+            string logoPath = "../../../Images/logo_auto_club.png";
+            Image logo = Image.FromFile(logoPath);
+            int maxLogoWidth = 250;
+            int maxLogoHeight = 250;
+
+            float aspectRatio = (float)logo.Width / logo.Height;
+
+            // Adjust width and height to maintain aspect ratio within the given bounds
+            int logoWidth = maxLogoWidth;
+            int logoHeight = maxLogoHeight;
+
+            if (logo.Width > logo.Height)
+            {
+                logoHeight = (int)(maxLogoWidth / aspectRatio);
+            }
+            else
+            {
+                logoWidth = (int)(maxLogoHeight * aspectRatio);
+            }
+
+            // Draw the resized logo
+            e.Graphics.DrawImage(logo , 500, 30, logoWidth, logoHeight);
+
             // Define fonts
-           
+
 
             // Define margins
             // Set up the fonts and formatting
@@ -210,40 +234,64 @@ namespace Auto_Club
 
             // Rental Agreement Number and Date
             e.Graphics.DrawString("Rental Agreement No: ___________________", regularFont, brush, startX, startY + (lineHeight * 4));
+            e.Graphics.DrawString("                                        " + state.rental_id, regularFont , brush , startX , startY + (lineHeight * 4));
             e.Graphics.DrawString("Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 5));
+            e.Graphics.DrawString("                         " + state.date, regularFont, brush, startX, startY + (lineHeight * 5));
+
+
 
             // Customer Information
             e.Graphics.DrawString("Customer Information", sectionFont, brush, startX, startY + (lineHeight * 7));
             e.Graphics.DrawString("Name: _______________________________", regularFont, brush, startX, startY + (lineHeight * 8));
+            e.Graphics.DrawString("                    " + state.name, regularFont, brush, startX, startY + (lineHeight * 8));
             e.Graphics.DrawString("Father's/Husband's Name: _____________________", regularFont, brush, startX + 350, startY + (lineHeight * 8));
+            e.Graphics.DrawString("                                              " + state.parent_name, regularFont, brush, startX + 350, startY + (lineHeight * 8));
             e.Graphics.DrawString("CNIC Number: ________________________", regularFont, brush, startX, startY + (lineHeight * 9));
+            e.Graphics.DrawString("                           " + state.cnic, regularFont, brush, startX, startY + (lineHeight * 9));
             e.Graphics.DrawString("Phone Number: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 9));
+            e.Graphics.DrawString("                           " + state.phone_number, regularFont, brush, startX + 350, startY + (lineHeight * 9));
             e.Graphics.DrawString("Residential Address: _______________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 10));
+            e.Graphics.DrawString("                                    " + state.residence, regularFont, brush, startX, startY + (lineHeight * 10));
             e.Graphics.DrawString("Phone Address: ___________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 11));
+            e.Graphics.DrawString("                              " + state.phone_address, regularFont, brush, startX, startY + (lineHeight * 11));
 
             e.Graphics.DrawString("Guarantor Information", sectionFont, brush, startX, startY + (lineHeight * 13));
             e.Graphics.DrawString("Name: _______________________________", regularFont, brush, startX, startY + (lineHeight * 14));
+            e.Graphics.DrawString("                    " + state.g_name, regularFont, brush, startX, startY + (lineHeight * 14));
             e.Graphics.DrawString("Father's/Husband's Name: _____________________", regularFont, brush, startX + 350, startY + (lineHeight * 14));
+            e.Graphics.DrawString("                                              " + state.g_parent_name, regularFont, brush, startX + 350, startY + (lineHeight * 14));
             e.Graphics.DrawString("CNIC Number: ________________________", regularFont, brush, startX, startY + (lineHeight * 15));
+            e.Graphics.DrawString("                           " + state.g_cnic, regularFont, brush, startX, startY + (lineHeight * 15));
             e.Graphics.DrawString("Phone Number: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 15));
+            e.Graphics.DrawString("                           " + state.g_phone_number, regularFont, brush, startX + 350, startY + (lineHeight * 15));
             e.Graphics.DrawString("Residential Address: _______________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 16));
+            e.Graphics.DrawString("                                    " + state.g_residence, regularFont, brush, startX, startY + (lineHeight * 16));
             e.Graphics.DrawString("Phone Address: ___________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 17));
+            e.Graphics.DrawString("                              " + state.g_phone_number, regularFont, brush, startX, startY + (lineHeight * 17));
 
             // Vehicle Information
             e.Graphics.DrawString("Vehicle Information", sectionFont, brush, startX, startY + (lineHeight * 20));
             string reg = "Registration Number: ________________________";
             e.Graphics.DrawString(reg, regularFont, brush, startX, startY + (lineHeight * 21));
+            e.Graphics.DrawString("                                    " + state.carNum, regularFont, brush, startX, startY + (lineHeight * 21));
             e.Graphics.DrawString("Make: ______________________________", regularFont, brush, startX + 390, startY + (lineHeight * 21));
+            e.Graphics.DrawString("                " + state.maker, regularFont, brush, startX + 390, startY + (lineHeight * 21));
             string model = "Model: _______________________________";
             e.Graphics.DrawString(model, regularFont, brush, startX, startY + (lineHeight * 22));
+            e.Graphics.DrawString("                " + state.model, regularFont, brush, startX, startY + (lineHeight * 22));
             e.Graphics.DrawString("Engine Number: ___________________________", regularFont, brush, startX + 354, startY + (lineHeight * 22));
+            e.Graphics.DrawString("                           " + state.engine_num, regularFont, brush, startX + 354, startY + (lineHeight * 22));
             string chassis = "Chassis Number: ______________________";
             e.Graphics.DrawString(chassis, regularFont, brush, startX, startY + (lineHeight * 23));
+            e.Graphics.DrawString("                                 " + state.chassis_num, regularFont, brush, startX, startY + (lineHeight * 23));
             e.Graphics.DrawString("Color: ___________________________________", regularFont, brush, startX + 354, startY + (lineHeight * 23));
-
+            e.Graphics.DrawString("                       " + state.color, regularFont, brush, startX + 354, startY + (lineHeight * 23));
             e.Graphics.DrawString("Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 24));
+            e.Graphics.DrawString("                                 " + state.rental_date, regularFont, brush, startX, startY + (lineHeight * 24));
             e.Graphics.DrawString("Rental End Date: _______________________", regularFont, brush, startX + 402, startY + (lineHeight * 24));
+            e.Graphics.DrawString("                                 " + state.return_date, regularFont, brush, startX + 402, startY + (lineHeight * 24));
             e.Graphics.DrawString("Destination: ____________________________", regularFont, brush, startX, startY + (lineHeight * 25));
+            e.Graphics.DrawString("                           " + state.destination, regularFont, brush, startX, startY + (lineHeight * 25));
             e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX + 366, startY + (lineHeight * 25));
             e.Graphics.DrawString("Total Amount: ___________________________", regularFont, brush, startX, startY + (lineHeight * 26));
 
