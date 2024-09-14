@@ -39,11 +39,12 @@
             textBox3 = new TextBox();
             textBox4 = new TextBox();
             textBox5 = new TextBox();
-            textBox8 = new TextBox();
             textBox9 = new TextBox();
             textBox1 = new TextBox();
             label1 = new Label();
             button1 = new Button();
+            radioButton1 = new RadioButton();
+            radioButton2 = new RadioButton();
             SuspendLayout();
             // 
             // button3
@@ -85,7 +86,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(402, 140);
+            label5.Location = new Point(402, 180);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(180, 26);
@@ -157,17 +158,9 @@
             textBox5.Size = new Size(106, 23);
             textBox5.TabIndex = 30;
             // 
-            // textBox8
-            // 
-            textBox8.Location = new Point(604, 106);
-            textBox8.Margin = new Padding(2);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(106, 23);
-            textBox8.TabIndex = 33;
-            // 
             // textBox9
             // 
-            textBox9.Location = new Point(604, 145);
+            textBox9.Location = new Point(604, 185);
             textBox9.Margin = new Padding(2);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(106, 23);
@@ -205,14 +198,37 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Location = new Point(604, 106);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(73, 19);
+            radioButton1.TabIndex = 36;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Available";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(604, 131);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(96, 19);
+            radioButton2.TabIndex = 37;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Not Available";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
             // Edit
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(796, 353);
+            Controls.Add(radioButton2);
+            Controls.Add(radioButton1);
             Controls.Add(button1);
             Controls.Add(textBox9);
-            Controls.Add(textBox8);
             Controls.Add(textBox5);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
@@ -248,10 +264,11 @@
         private TextBox textBox3;
         private TextBox textBox4;
         private TextBox textBox5;
-        private TextBox textBox8;
         private TextBox textBox9;
         private TextBox textBox1;
         private Label label1;
         private Button button1;
+        private RadioButton radioButton1;
+        private RadioButton radioButton2;
     }
 }

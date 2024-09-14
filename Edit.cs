@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient; using System.Configuration;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace Auto_Club
                 conn.Open();
                 textBox1.Text = car_num;
                 string query = "select * from cars where car_number = @carnum";
+                string avalible_status = "";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@carnum", car_num);
@@ -45,7 +47,7 @@ namespace Auto_Club
                                 textBox5.Text = (reader.IsDBNull(3) ? "N/A" : reader.GetString(3));
                                 textBox9.Text = (reader.IsDBNull(4) ? "N/A" : reader.GetString(4));
                                 textBox4.Text = (reader.IsDBNull(5) ? "N/A" : reader.GetString(5));
-                                textBox8.Text = (reader.IsDBNull(6) ? "N/A" : reader.GetString(6));
+                                avalible_status = (reader.IsDBNull(6) ? "N/A" : reader.GetString(6));
                             }
                             catch (Exception err)
                             {
@@ -55,6 +57,16 @@ namespace Auto_Club
                         }
                     }
                     else MessageBox.Show("No Results Found");
+                }
+                if (avalible_status == "Available")
+                {
+                    //available
+                    radioButton1.Checked = true;
+                }
+                else if (avalible_status == "Not Available")
+                {
+                    //not available
+                    radioButton2.Checked = true;
                 }
             }
         }
@@ -66,8 +78,15 @@ namespace Auto_Club
             string model = textBox3.Text.Trim();
             string color = textBox4.Text.Trim();
             string engine_number = textBox5.Text.Trim();
-            string status = textBox8.Text.Trim();
+            //string status = textBox8.Text.Trim();
             string chassis_number = textBox9.Text.Trim();
+
+            string status = "Available";
+
+            if (radioButton2.Checked)
+            {
+                status = "Not " + status;
+            }
 
             if (String.IsNullOrEmpty(car_number))
                 return;
@@ -133,6 +152,11 @@ namespace Auto_Club
         }
 
         private void Edit_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
         {
 
         }

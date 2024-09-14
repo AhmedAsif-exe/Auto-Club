@@ -18,6 +18,7 @@ namespace Auto_Club
         {
             InitializeComponent();
             load_form();
+            button1_Click(Owner, new EventArgs());
         }
         void load_form()
         {
@@ -47,7 +48,10 @@ namespace Auto_Club
                 string id = dataGridView1.Rows[e.RowIndex].Cells["Car Number"].Value.ToString();
 
                 Edit edit = new Edit(id);
-                edit.FormClosed += (s, args) => this.Show();
+                edit.FormClosed += (s, args) => { 
+                    this.Show();
+                    button1.PerformClick();
+                };
                 this.Hide();
                 edit.Show();
             }
@@ -58,6 +62,7 @@ namespace Auto_Club
         private void button1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
+            //MessageBox.Show("Reloaded");
             string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
             string car_number = textBox1.Text.Trim();
             using (SqlConnection conn = new SqlConnection(connection_string))
@@ -123,7 +128,10 @@ namespace Auto_Club
         private void button3_Click(object sender, EventArgs e)
         {
             Add add = new Add();
-            add.FormClosed += (s, args) => this.Show();
+            add.FormClosed += (s, args) =>
+            {
+                this.Show(); // Show the main form
+            };
             add.Show();
             this.Hide();
         }
