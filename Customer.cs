@@ -84,7 +84,6 @@ namespace Auto_Club
         private void button3_Click(object sender, EventArgs e)
         {
             save_customer();
-            MessageBox.Show(id.ToString());
             if (id == -1) return;
             try
             {

@@ -144,16 +144,22 @@ namespace Auto_Club
                 DateTime rental_date = dateTimePicker1.Value;
                 DateTime return_date = dateTimePicker2.Value;
                 string des = destination.Text.Trim();
+                if (string.IsNullOrEmpty(des)) {
+                    MessageBox.Show("You didn't fill destination field");
+                    return;
+                }
                 string query = "INSERT INTO customer_cars (customer_id, car_id, rental_date, return_date, destination) " +
                                                   "VALUES (@customer_id, @car_id, @rental_date, @return_date, @destination)" +
                                                   "SELECT SCOPE_IDENTITY();";
+            
+                try { 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@customer_id", this.customer_id);
                     cmd.Parameters.AddWithValue("@car_id", this.car_num);
                     cmd.Parameters.AddWithValue("@rental_date", rental_date);
                     cmd.Parameters.AddWithValue("@return_date", return_date);
-                    cmd.Parameters.AddWithValue("@destination", string.IsNullOrEmpty(des) ? "N/A" : des);
+                    cmd.Parameters.AddWithValue("@destination", des);
 
                     var newId = cmd.ExecuteScalar();
                     state.rental_id = newId.ToString();
@@ -172,27 +178,24 @@ namespace Auto_Club
                     cmd.ExecuteNonQuery();
                 }
 
-
+                }catch(SqlException ex)
+                {
+                    MessageBox.Show(TranslateSqlException(ex));
+                }
 
 
 
             }
         }
 
-        private void DrawUnderline(Graphics g, float startX, float startY, float length)
-        {
-            using (Pen pen = new Pen(Color.Black, 1))
-            {
-                g.DrawLine(pen, startX, startY, startX + length, startY);
-            }
-        }
+        
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
             //Drawing image logo
-            string logoPath = "../../../Images/logo_auto_club.png";
+            string logoPath = "../../../Images/logo_auto_club-300.png";
             Image logo = Image.FromFile(logoPath);
-            int maxLogoWidth = 250;
-            int maxLogoHeight = 250;
+            int maxLogoWidth = 300;
+            int maxLogoHeight = 300;
 
             float aspectRatio = (float)logo.Width / logo.Height;
 
@@ -210,7 +213,7 @@ namespace Auto_Club
             }
 
             // Draw the resized logo
-            e.Graphics.DrawImage(logo , 500, 30, logoWidth, logoHeight);
+            e.Graphics.DrawImage(logo , 450, 0, logoWidth, logoHeight);
 
             // Define fonts
 
@@ -219,6 +222,7 @@ namespace Auto_Club
             // Set up the fonts and formatting
             Font titleFont = new Font("Arial", 20, FontStyle.Bold);
             Font sectionFont = new Font("Arial", 14, FontStyle.Underline);
+            Font subHeadingFont = new Font("Arial", 10);
             Font regularFont = new Font("Arial", 12);
             Brush brush = Brushes.Black;
 
@@ -229,8 +233,10 @@ namespace Auto_Club
 
             // Company Name and Details
             e.Graphics.DrawString("Auto Club Rent A Car", titleFont, brush, startX, startY);
-            e.Graphics.DrawString("B-1, National Market, Satellite Town, Rawalpindi", regularFont, brush, startX, startY + lineHeight);
-            e.Graphics.DrawString("0333-4560077 | 0313-5555477", regularFont, brush, startX, startY + (lineHeight * 2));
+            e.Graphics.DrawString("Shop B 1 Buldning, Usmania resturent,", subHeadingFont, brush, startX, startY + lineHeight);
+            e.Graphics.DrawString("committee chowke, Dhoke Elahi Baksh,", subHeadingFont, brush, startX, startY + lineHeight * 2 - 15);
+            e.Graphics.DrawString("Rawalpindi", subHeadingFont, brush, startX, startY + lineHeight * 3 - 30);
+            e.Graphics.DrawString("0333-4560077 | 0313-5555477", subHeadingFont, brush, startX, startY + (lineHeight * 4 - 30));
             
             // Rental Agreement Number and Date
             e.Graphics.DrawString("Rental Agreement No: ___________________", regularFont, brush, startX, startY + (lineHeight * 4));
@@ -269,41 +275,47 @@ namespace Auto_Club
             e.Graphics.DrawString("                              " + state.g_phone_number, regularFont, brush, startX, startY + (lineHeight * 17));
 
             // Vehicle Information
-            e.Graphics.DrawString("Vehicle Information", sectionFont, brush, startX, startY + (lineHeight * 20));
+            e.Graphics.DrawString("Vehicle Information", sectionFont, brush, startX, startY + (lineHeight * 19));
             string reg = "Registration Number: ________________________";
-            e.Graphics.DrawString(reg, regularFont, brush, startX, startY + (lineHeight * 21));
-            e.Graphics.DrawString("                                    " + state.carNum, regularFont, brush, startX, startY + (lineHeight * 21));
-            e.Graphics.DrawString("Make: ______________________________", regularFont, brush, startX + 390, startY + (lineHeight * 21));
-            e.Graphics.DrawString("                " + state.maker, regularFont, brush, startX + 390, startY + (lineHeight * 21));
+            e.Graphics.DrawString(reg, regularFont, brush, startX, startY + (lineHeight * 20));
+            e.Graphics.DrawString("                                    " + state.carNum, regularFont, brush, startX, startY + (lineHeight * 20));
+            e.Graphics.DrawString("Make: ______________________________", regularFont, brush, startX + 390, startY + (lineHeight * 20));
+            e.Graphics.DrawString("                " + state.maker, regularFont, brush, startX + 390, startY + (lineHeight * 20));
             string model = "Model: _______________________________";
-            e.Graphics.DrawString(model, regularFont, brush, startX, startY + (lineHeight * 22));
-            e.Graphics.DrawString("                " + state.model, regularFont, brush, startX, startY + (lineHeight * 22));
-            e.Graphics.DrawString("Engine Number: ___________________________", regularFont, brush, startX + 354, startY + (lineHeight * 22));
-            e.Graphics.DrawString("                           " + state.engine_num, regularFont, brush, startX + 354, startY + (lineHeight * 22));
+            e.Graphics.DrawString(model, regularFont, brush, startX, startY + (lineHeight * 21));
+            e.Graphics.DrawString("                " + state.model, regularFont, brush, startX, startY + (lineHeight * 21));
+            e.Graphics.DrawString("Engine Number: ___________________________", regularFont, brush, startX + 354, startY + (lineHeight * 21));
+            e.Graphics.DrawString("                           " + state.engine_num, regularFont, brush, startX + 354, startY + (lineHeight * 21));
             string chassis = "Chassis Number: ______________________";
-            e.Graphics.DrawString(chassis, regularFont, brush, startX, startY + (lineHeight * 23));
-            e.Graphics.DrawString("                                 " + state.chassis_num, regularFont, brush, startX, startY + (lineHeight * 23));
-            e.Graphics.DrawString("Color: ___________________________________", regularFont, brush, startX + 354, startY + (lineHeight * 23));
-            e.Graphics.DrawString("                       " + state.color, regularFont, brush, startX + 354, startY + (lineHeight * 23));
-            e.Graphics.DrawString("Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 24));
-            e.Graphics.DrawString("                                 " + state.rental_date, regularFont, brush, startX, startY + (lineHeight * 24));
-            e.Graphics.DrawString("Rental End Date: _______________________", regularFont, brush, startX + 402, startY + (lineHeight * 24));
-            e.Graphics.DrawString("                                 " + state.return_date, regularFont, brush, startX + 402, startY + (lineHeight * 24));
-            e.Graphics.DrawString("Destination: ____________________________", regularFont, brush, startX, startY + (lineHeight * 25));
-            e.Graphics.DrawString("                           " + state.destination, regularFont, brush, startX, startY + (lineHeight * 25));
-            e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX + 366, startY + (lineHeight * 25));
-            e.Graphics.DrawString("Total Amount: ___________________________", regularFont, brush, startX, startY + (lineHeight * 26));
+            e.Graphics.DrawString(chassis, regularFont, brush, startX, startY + (lineHeight * 22));
+            e.Graphics.DrawString("                                 " + state.chassis_num, regularFont, brush, startX, startY + (lineHeight * 22));
+            e.Graphics.DrawString("Color: ___________________________________", regularFont, brush, startX + 354, startY + (lineHeight * 22));
+            e.Graphics.DrawString("                       " + state.color, regularFont, brush, startX + 354, startY + (lineHeight * 22));
+            e.Graphics.DrawString("Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 23));
+            e.Graphics.DrawString("                                 " + state.rental_date, regularFont, brush, startX, startY + (lineHeight * 23));
+            e.Graphics.DrawString("Rental End Date: _______________________", regularFont, brush, startX + 402, startY + (lineHeight * 23));
+            e.Graphics.DrawString("                                 " + state.return_date, regularFont, brush, startX + 402, startY + (lineHeight * 23));
+            e.Graphics.DrawString("Destination: ____________________________", regularFont, brush, startX, startY + (lineHeight * 24));
+            e.Graphics.DrawString("                           " + state.destination, regularFont, brush, startX, startY + (lineHeight * 24));
+            e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX + 366, startY + (lineHeight * 24));
+            e.Graphics.DrawString("Total Amount: ___________________________", regularFont, brush, startX, startY + (lineHeight * 25));
 
 
             // Signatures
-            e.Graphics.DrawString("Signatures", sectionFont, brush, startX, startY + (lineHeight * 29));
-            e.Graphics.DrawString("Customer: _____________________________", regularFont, brush, startX, startY + (lineHeight * 30));
-            e.Graphics.DrawString("Witness: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 30));
-            e.Graphics.DrawString("Company Representative: __________________", regularFont, brush, startX, startY + (lineHeight * 31));
+            e.Graphics.DrawString("Signatures", sectionFont, brush, startX, startY + (lineHeight * 27));
+            e.Graphics.DrawString("Customer: _____________________________", regularFont, brush, startX, startY + (lineHeight * 28));
+            e.Graphics.DrawString("Witness: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 28));
+            e.Graphics.DrawString("Company Representative: __________________", regularFont, brush, startX, startY + (lineHeight * 29));
         }
     
     private void button3_Click(object sender, EventArgs e)
         {
+            string des = destination.Text.Trim();
+            if (string.IsNullOrEmpty(des))
+            {
+                MessageBox.Show("You didn't fill destination field");
+                return;
+            }
             save_to_db();
 
             PrintDialog print = new PrintDialog();
@@ -332,5 +344,30 @@ namespace Auto_Club
         {
 
         }
+        string TranslateSqlException(SqlException ex)
+        {
+            switch (ex.Number)
+            {
+                case 2627: // Unique constraint violation
+                case 2601: // Duplicated key row error
+                    return "A record with the same unique information already exists.";
+
+                case 547: // Foreign key violation
+                    return "You cannot delete this record because it's in use elsewhere.";
+
+                case 515: // Cannot insert null into a column that doesn't allow nulls
+                    return "Please make sure all required fields are filled in.";
+
+                case -2: // SQL Timeout
+                    return "The request took too long. Please try again later.";
+
+                case 53: // Cannot connect to SQL Server
+                    return "Could not connect to the database. Please check your network connection.";
+
+                default: // Default error message
+                    return "An unexpected database error occurred. Please try again.";
+            }
+        }
+
     }
 }

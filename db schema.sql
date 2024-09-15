@@ -39,11 +39,14 @@ CREATE TABLE customer_cars (
     car_id VARCHAR(20) NOT NULL,                -- Car ID (foreign key)
     rental_date DATETIME NOT NULL,              -- Date and time when the car was rented
     return_date DATETIME,                       -- Date and time when the car was returned (nullable)
-	destination varchar(200),
+	destination varchar(200) Not NULL,
     -- Foreign key constraints
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
     FOREIGN KEY (car_id) REFERENCES cars(car_number)
+
 );
+drop table customer_cars
+select * from customer_cars
 drop table customers
 drop table customer_cars
 INSERT INTO cars (car_number, maker, model, engine_number, chassis_number, color) VALUES
@@ -137,10 +140,10 @@ where status is NULL
 select * from users
 SELECT * FROM CUSTOMERS
 select * from customer_cars
-select * from customers
+select * from cars
 SELECT customer_id, name 
 
-SELECT rental_id, name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date, destination
+SELECT name, cnic, phone_number, parent_name, phone_residence, current_residence, guarantor_name, guarantor_cnic, guarantor_phone_number, guarantor_parent_name, guarantor_phone_residence, guarantor_current_residence, car_number, maker, model, engine_number, chassis_number, color, rental_date, return_date, destination
                                 FROM customer_cars cc
                                 INNER JOIN customers c ON cc.customer_id = c.customer_id
                                 INNER JOIN cars ON cc.car_id = cars.car_number

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient; using System.Configuration;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Configuration;
 
 namespace Auto_Club
@@ -30,7 +31,7 @@ namespace Auto_Club
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
-                string query = "SELECT car_number FROM cars";
+                string query = "SELECT car_number, maker FROM cars";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -38,8 +39,10 @@ namespace Auto_Club
                     {
                         while (reader.Read())
                         {
+                            string car_num = reader["car_number"].ToString();
+                            string name = reader["maker"].ToString();
                             // Assuming car_number is a string, modify if it's a different type
-                            comboBox1.Items.Add(reader["car_number"].ToString());
+                            comboBox1.Items.Add(car_num + ", " + name);
                         }
                     }
                 }
@@ -57,11 +60,16 @@ namespace Auto_Club
                 string query = "select * from cars where 1=1 ";
                 query += "AND car_number = @carnum";
                 //string car_num = textBox1.Text.Trim();
-                string car_num = comboBox1.SelectedItem.ToString();
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                string car_num = "";
+                try { 
+                    car_num = comboBox1.SelectedItem.ToString();
+                }catch(Exception ex)
                 {
 
-                    cmd.Parameters.AddWithValue("@carnum", car_num);
+                }
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@carnum", car_num.Split(",")[0]);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -115,7 +123,7 @@ namespace Auto_Club
             }
             //string car_num = textBox1.Text.Trim();
             string car_num = comboBox1.SelectedItem.ToString();
-            Customer customer = new Customer(car_num);
+            Customer customer = new Customer(car_num.Split(",")[0]);
             customer.FormClosed += (s, args) => this.Close();
             this.Hide();
             customer.Show();
@@ -134,6 +142,11 @@ namespace Auto_Club
             //cashier cashier = new cashier();
             //cashier.FormClosed += (s, args) => this.Show();
             //cashier.Show();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

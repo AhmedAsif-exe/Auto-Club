@@ -62,7 +62,7 @@ namespace Auto_Club
         private void button1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            //MessageBox.Show("Reloaded");
+
             string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
             string car_number = textBox1.Text.Trim();
             using (SqlConnection conn = new SqlConnection(connection_string))

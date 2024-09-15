@@ -18,6 +18,7 @@ namespace Auto_Club
         {
             InitializeComponent();
             make_table();
+            button1_Click(Owner, new EventArgs());
         }
         void make_table()
         {

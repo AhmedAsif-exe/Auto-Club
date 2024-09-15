@@ -21,17 +21,28 @@ namespace Auto_Club
         }
         void create_table()
         {
+            //dataGridView1.Columns.Add("name", "Customer Name");
+            //dataGridView1.Columns.Add("cnic", "CNIC");
+            //dataGridView1.Columns.Add("phone_number", "Phone Number");
+            //dataGridView1.Columns.Add("parent_name", "Parent Name");
+            //dataGridView1.Columns.Add("phone_residence", "Residence Phone");
+            //dataGridView1.Columns.Add("current_residence", "Current Residence");
+            //dataGridView1.Columns.Add("guarantor_name", "Guarantor Name");
+            //dataGridView1.Columns.Add("guarantor_cnic", "Guarantor CNIC");
+            //dataGridView1.Columns.Add("guarantor_phone_number", "Guarantor Phone");
+            //dataGridView1.Columns.Add("guarantor_parent_name", "Guarantor Parent Name");
+            //dataGridView1.Columns.Add("guarantor_phone_residence", "Guarantor Residence Phone");
+            //dataGridView1.Columns.Add("guarantor_current_residence", "Guarantor Current Residence");
+            //dataGridView1.Columns.Add("car_number", "Car Number");
+            //dataGridView1.Columns.Add("maker", "Maker");
+            //dataGridView1.Columns.Add("model", "Model");
+            //dataGridView1.Columns.Add("engine_number", "Engine Number");
+            //dataGridView1.Columns.Add("chassis_number", "Chassis Number");
+            //dataGridView1.Columns.Add("color", "Color");
+            //dataGridView1.Columns.Add("rental_date", "Rental Date");
+            //dataGridView1.Columns.Add("return_date", "Return Date");
+            //dataGridView1.Columns.Add("destination", "Destination");
 
-            dataGridView1.Columns.Add("name", "Customer Name");
-            dataGridView1.Columns.Add("cnic", "CNIC");
-            dataGridView1.Columns.Add("phone_number", "Phone Number");
-            dataGridView1.Columns.Add("guarantor_name", "Guarantor Name");
-            dataGridView1.Columns.Add("car_number", "Car Number");
-            dataGridView1.Columns.Add("maker", "Car Maker");
-            dataGridView1.Columns.Add("model", "Car Model");
-            dataGridView1.Columns.Add("rental_date", "Rental Date");
-            dataGridView1.Columns.Add("return_date", "Return Date");
-            dataGridView1.Columns.Add("destination", "Destination");
 
 
         }
@@ -45,39 +56,22 @@ namespace Auto_Club
             {
                 conn.Open();
                 string query = @"
-                                SELECT name, cnic, phone_number, guarantor_name, car_number, maker, model, rental_date, return_date, destination
+                                SELECT rental_id, name, cnic, phone_number, parent_name, phone_residence, current_residence, guarantor_name, guarantor_cnic, guarantor_phone_number, guarantor_parent_name, guarantor_phone_residence, guarantor_current_residence, car_number, maker, model, engine_number, chassis_number, color, rental_date, return_date, destination
                                 FROM customer_cars cc
                                 INNER JOIN customers c ON cc.customer_id = c.customer_id
                                 INNER JOIN cars ON cc.car_id = cars.car_number
-                                WHERE cc.rental_date BETWEEN @start_date AND @end_date;
                                 ";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@start_date", FromDate);
                     cmd.Parameters.AddWithValue("@end_date", ToDate);
+                    try { 
+                            SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
 
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    try
-                    {
-                        while (reader.Read())
-                        {
-                            DataGridViewRow row = new DataGridViewRow();
-                            row.CreateCells(dataGridView1);
-
-                            // Read values from the reader and set them to the row
-                            row.Cells[0].Value = reader["name"].ToString();
-                            row.Cells[1].Value = reader["cnic"].ToString();
-                            row.Cells[2].Value = reader["phone_number"].ToString();
-                            row.Cells[3].Value = reader["guarantor_name"].ToString();
-                            row.Cells[4].Value = reader["car_number"].ToString();
-                            row.Cells[5].Value = reader["maker"].ToString();
-                            row.Cells[6].Value = reader["model"].ToString();
-                            row.Cells[7].Value = Convert.ToDateTime(reader["rental_date"]);
-                            row.Cells[8].Value = Convert.ToDateTime(reader["return_date"]);
-                            row.Cells[9].Value = reader["destination"].ToString();
-                            // Add the row to the DataGridView
-                            dataGridView1.Rows.Add(row);
-                        }
+                            // Bind data to DataGridView
+                            dataGridView1.DataSource = dataTable;
                         dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     }
                     catch (SqlException ex)
