@@ -53,11 +53,9 @@
             label10 = new Label();
             dateTimePicker1 = new DateTimePicker();
             label11 = new Label();
-            label12 = new Label();
             printDocument1 = new System.Drawing.Printing.PrintDocument();
             printDialog1 = new PrintDialog();
             printPreviewDialog1 = new PrintPreviewDialog();
-            dateTimePicker2 = new DateTimePicker();
             destination = new TextBox();
             label13 = new Label();
             SuspendLayout();
@@ -260,30 +258,20 @@
             // 
             dateTimePicker1.CustomFormat = "MM/dd/yyyy hh:mm tt";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(229, 509);
+            dateTimePicker1.Location = new Point(517, 526);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(300, 31);
+            dateTimePicker1.Size = new Size(345, 31);
             dateTimePicker1.TabIndex = 58;
             // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(99, 502);
+            label11.Location = new Point(311, 522);
             label11.Name = "label11";
-            label11.Size = new Size(102, 37);
+            label11.Size = new Size(193, 37);
             label11.TabIndex = 60;
-            label11.Text = "From:";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label12.Location = new Point(639, 504);
-            label12.Name = "label12";
-            label12.Size = new Size(64, 37);
-            label12.TabIndex = 61;
-            label12.Text = "To:";
+            label11.Text = "Rental Date:";
             // 
             // printDialog1
             // 
@@ -298,15 +286,6 @@
             printPreviewDialog1.Icon = (Icon)resources.GetObject("printPreviewDialog1.Icon");
             printPreviewDialog1.Name = "printPreviewDialog1";
             printPreviewDialog1.Visible = false;
-            // 
-            // dateTimePicker2
-            // 
-            dateTimePicker2.CustomFormat = "MM/dd/yyyy hh:mm tt";
-            dateTimePicker2.Format = DateTimePickerFormat.Custom;
-            dateTimePicker2.Location = new Point(726, 508);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(300, 31);
-            dateTimePicker2.TabIndex = 62;
             // 
             // destination
             // 
@@ -333,8 +312,6 @@
             ClientSize = new Size(1247, 628);
             Controls.Add(destination);
             Controls.Add(label13);
-            Controls.Add(dateTimePicker2);
-            Controls.Add(label12);
             Controls.Add(label11);
             Controls.Add(dateTimePicker1);
             Controls.Add(guarantor_phone);
@@ -392,11 +369,9 @@
         private Label label10;
         private DateTimePicker dateTimePicker1;
         private Label label11;
-        private Label label12;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintDialog printDialog1;
         private PrintPreviewDialog printPreviewDialog1;
-        private DateTimePicker dateTimePicker2;
         private TextBox destination;
         private Label label13;
     }

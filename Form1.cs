@@ -31,7 +31,7 @@ namespace Auto_Club
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
-                string query = "SELECT car_number, maker FROM cars";
+                string query = "SELECT car_number, maker FROM cars where status <> 'Deleted'";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient; using System.Configuration;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
@@ -39,7 +40,6 @@ namespace Auto_Club
         public string g_phone_address;
 
         public string rental_date;
-        public string return_date;
         public string destination;
     }
     public partial class RentSummary : Form
@@ -142,43 +142,45 @@ namespace Auto_Club
             {
                 conn.Open();
                 DateTime rental_date = dateTimePicker1.Value;
-                DateTime return_date = dateTimePicker2.Value;
+
                 string des = destination.Text.Trim();
-                if (string.IsNullOrEmpty(des)) {
+                if (string.IsNullOrEmpty(des))
+                {
                     MessageBox.Show("You didn't fill destination field");
                     return;
                 }
-                string query = "INSERT INTO customer_cars (customer_id, car_id, rental_date, return_date, destination) " +
-                                                  "VALUES (@customer_id, @car_id, @rental_date, @return_date, @destination)" +
+                string query = "INSERT INTO customer_cars (customer_id, car_id, rental_date, destination) " +
+                                                  "VALUES (@customer_id, @car_id, @rental_date, @destination)" +
                                                   "SELECT SCOPE_IDENTITY();";
-            
-                try { 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+
+                try
                 {
-                    cmd.Parameters.AddWithValue("@customer_id", this.customer_id);
-                    cmd.Parameters.AddWithValue("@car_id", this.car_num);
-                    cmd.Parameters.AddWithValue("@rental_date", rental_date);
-                    cmd.Parameters.AddWithValue("@return_date", return_date);
-                    cmd.Parameters.AddWithValue("@destination", des);
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@customer_id", this.customer_id);
+                        cmd.Parameters.AddWithValue("@car_id", this.car_num);
+                        cmd.Parameters.AddWithValue("@rental_date", rental_date);
+                        cmd.Parameters.AddWithValue("@destination", des);
 
-                    var newId = cmd.ExecuteScalar();
-                    state.rental_id = newId.ToString();
-                    state.rental_date = rental_date.ToString("yyyy-MM-dd hh:m tt");
-                    state.return_date = return_date.ToString("yyyy-MM-dd hh:m tt");
-                    state.date = DateTime.Now.ToString("yyyy-MM-dd");
-                    state.destination = des;
-                }
+                        var newId = cmd.ExecuteScalar();
+                        state.rental_id = newId.ToString();
+                        state.rental_date = rental_date.ToString("yyyy-MM-dd hh:m tt");
 
-                string query_2 = @"update cars 
+                        state.date = DateTime.Now.ToString("yyyy-MM-dd");
+                        state.destination = des;
+                    }
+
+                    string query_2 = @"update cars 
                                 set status = 'Not Available'
                                 where car_number = @car_num";
-                using (SqlCommand cmd = new SqlCommand(query_2, conn))
-                {
-                    cmd.Parameters.AddWithValue("@car_num", this.car_num);
-                    cmd.ExecuteNonQuery();
-                }
+                    using (SqlCommand cmd = new SqlCommand(query_2, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@car_num", this.car_num);
+                        cmd.ExecuteNonQuery();
+                    }
 
-                }catch(SqlException ex)
+                }
+                catch (SqlException ex)
                 {
                     MessageBox.Show(TranslateSqlException(ex));
                 }
@@ -188,32 +190,32 @@ namespace Auto_Club
             }
         }
 
-        
+
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
             //Drawing image logo
-            string logoPath = "../../../Images/logo_auto_club-300.png";
-            Image logo = Image.FromFile(logoPath);
-            int maxLogoWidth = 300;
-            int maxLogoHeight = 300;
+            //string logoPath = "./logo_auto_club-300.png";
+            //Image logo = Image.FromFile(logoPath);
+            //int maxLogoWidth = 300;
+            //int maxLogoHeight = 300;
 
-            float aspectRatio = (float)logo.Width / logo.Height;
+            //float aspectRatio = (float)logo.Width / logo.Height;
 
-            // Adjust width and height to maintain aspect ratio within the given bounds
-            int logoWidth = maxLogoWidth;
-            int logoHeight = maxLogoHeight;
+            //// Adjust width and height to maintain aspect ratio within the given bounds
+            //int logoWidth = maxLogoWidth;
+            //int logoHeight = maxLogoHeight;
 
-            if (logo.Width > logo.Height)
-            {
-                logoHeight = (int)(maxLogoWidth / aspectRatio);
-            }
-            else
-            {
-                logoWidth = (int)(maxLogoHeight * aspectRatio);
-            }
+            //if (logo.Width > logo.Height)
+            //{
+            //    logoHeight = (int)(maxLogoWidth / aspectRatio);
+            //}
+            //else
+            //{
+            //    logoWidth = (int)(maxLogoHeight * aspectRatio);
+            //}
 
-            // Draw the resized logo
-            e.Graphics.DrawImage(logo , 450, 0, logoWidth, logoHeight);
+            //// Draw the resized logo
+            //e.Graphics.DrawImage(logo, 450, 0, logoWidth, logoHeight);
 
             // Define fonts
 
@@ -233,14 +235,14 @@ namespace Auto_Club
 
             // Company Name and Details
             e.Graphics.DrawString("Auto Club Rent A Car", titleFont, brush, startX, startY);
-            e.Graphics.DrawString("Shop B 1 Buldning, Usmania resturent,", subHeadingFont, brush, startX, startY + lineHeight);
-            e.Graphics.DrawString("committee chowke, Dhoke Elahi Baksh,", subHeadingFont, brush, startX, startY + lineHeight * 2 - 15);
+            e.Graphics.DrawString("Shop B 1 Building, Usmania restaurant,", subHeadingFont, brush, startX, startY + lineHeight);
+            e.Graphics.DrawString("committee chowk, Dhoke Elahi Baksh,", subHeadingFont, brush, startX, startY + lineHeight * 2 - 15);
             e.Graphics.DrawString("Rawalpindi", subHeadingFont, brush, startX, startY + lineHeight * 3 - 30);
             e.Graphics.DrawString("0333-4560077 | 0313-5555477", subHeadingFont, brush, startX, startY + (lineHeight * 4 - 30));
-            
+
             // Rental Agreement Number and Date
             e.Graphics.DrawString("Rental Agreement No: ___________________", regularFont, brush, startX, startY + (lineHeight * 4));
-            e.Graphics.DrawString("                                        " + state.rental_id, regularFont , brush , startX , startY + (lineHeight * 4));
+            e.Graphics.DrawString("                                        " + state.rental_id, regularFont, brush, startX, startY + (lineHeight * 4));
             e.Graphics.DrawString("Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 5));
             e.Graphics.DrawString("                         " + state.date, regularFont, brush, startX, startY + (lineHeight * 5));
 
@@ -257,7 +259,7 @@ namespace Auto_Club
             e.Graphics.DrawString("                           " + state.phone_number, regularFont, brush, startX + 350, startY + (lineHeight * 9));
             e.Graphics.DrawString("Residential Address: _______________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 10));
             e.Graphics.DrawString("                                    " + state.residence, regularFont, brush, startX, startY + (lineHeight * 10));
-            e.Graphics.DrawString("Phone Address: ___________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 11));
+            e.Graphics.DrawString("Phone Number 2: _________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 11));
             e.Graphics.DrawString("                              " + state.phone_address, regularFont, brush, startX, startY + (lineHeight * 11));
 
             e.Graphics.DrawString("Guarantor Information", sectionFont, brush, startX, startY + (lineHeight * 13));
@@ -271,7 +273,7 @@ namespace Auto_Club
             e.Graphics.DrawString("                           " + state.g_phone_number, regularFont, brush, startX + 350, startY + (lineHeight * 15));
             e.Graphics.DrawString("Residential Address: _______________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 16));
             e.Graphics.DrawString("                                    " + state.g_residence, regularFont, brush, startX, startY + (lineHeight * 16));
-            e.Graphics.DrawString("Phone Address: ___________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 17));
+            e.Graphics.DrawString("Phone Number 2: _________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 17));
             e.Graphics.DrawString("                              " + state.g_phone_number, regularFont, brush, startX, startY + (lineHeight * 17));
 
             // Vehicle Information
@@ -294,7 +296,6 @@ namespace Auto_Club
             e.Graphics.DrawString("Rental Start Date: ___________________________", regularFont, brush, startX, startY + (lineHeight * 23));
             e.Graphics.DrawString("                                 " + state.rental_date, regularFont, brush, startX, startY + (lineHeight * 23));
             e.Graphics.DrawString("Rental End Date: _______________________", regularFont, brush, startX + 402, startY + (lineHeight * 23));
-            e.Graphics.DrawString("                                 " + state.return_date, regularFont, brush, startX + 402, startY + (lineHeight * 23));
             e.Graphics.DrawString("Destination: ____________________________", regularFont, brush, startX, startY + (lineHeight * 24));
             e.Graphics.DrawString("                           " + state.destination, regularFont, brush, startX, startY + (lineHeight * 24));
             e.Graphics.DrawString("Daily Rate: ________________________________", regularFont, brush, startX + 366, startY + (lineHeight * 24));
@@ -307,8 +308,8 @@ namespace Auto_Club
             e.Graphics.DrawString("Witness: ______________________________", regularFont, brush, startX + 350, startY + (lineHeight * 28));
             e.Graphics.DrawString("Company Representative: __________________", regularFont, brush, startX, startY + (lineHeight * 29));
         }
-    
-    private void button3_Click(object sender, EventArgs e)
+
+        private void button3_Click(object sender, EventArgs e)
         {
             string des = destination.Text.Trim();
             if (string.IsNullOrEmpty(des))

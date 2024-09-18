@@ -12,15 +12,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.CompilerServices;
 
 namespace Auto_Club
 {
     public partial class Edit : Form
     {
+        bool isRented = false;
         public Edit(string car_num)
         {
             InitializeComponent();
-
+            isRented = render_date_condition(car_num);
             get_data(car_num);
         }
         void get_data(string car_num)
@@ -70,7 +72,32 @@ namespace Auto_Club
                 }
             }
         }
+        bool render_date_condition(string car_num)
+        {
+            string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connection_string)) {
+                conn.Open();
+                string query = "select * from customer_cars where return_date is null and car_id = @car_num";
+                try { 
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@car_num", car_num);
+                    object result = cmd.ExecuteScalar();
 
+                    if (result == null)
+                    { 
+                      label11.Visible = false;
+                      dateTimePicker1.Visible = false;
+                      return true;
+                    }
+                }
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message)
+;                }
+            }
+            return false;
+        }
         private void button3_Click(object sender, EventArgs e)
         {
             string car_number = textBox1.Text.Trim();
@@ -115,7 +142,9 @@ namespace Auto_Club
 
             using (SqlConnection connection = new SqlConnection(connection_string))
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
                 {
 
                     // Add parameters to the command
@@ -127,19 +156,38 @@ namespace Auto_Club
                     command.Parameters.AddWithValue("@color", color);
                     command.Parameters.AddWithValue("@status", status);
 
-                    try
-                    {
+                   
                         // Open the connection and execute the command
                         connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                             MessageBox.Show("Data inserted successfully.");
+                   
+                }
+
+                if (isRented == false && radioButton1.Checked == true) {
+                    query = @"
+                            update customer_cars
+                            set return_date = @return_date
+                            where return_date is null and car_id = @car_num   
+                            ";
+
+                    using (SqlCommand command = new SqlCommand(query, connection)) {
+
+                        DateTime return_date = dateTimePicker1.Value;
+                        string ret_date = return_date.ToString("yyyy-MM-dd hh:mm tt");
+
+                        command.Parameters.AddWithValue("@return_date", ret_date);
+                        command.Parameters.AddWithValue("@car_num", car_number);
+
+                        command.ExecuteNonQuery();
                     }
+                }
+                }
                     catch (Exception ex)
                     {
-                        // Handle exceptions
-                        MessageBox.Show("An error occurred: " + ex.Message);
-                    }
+                    // Handle exceptions
+                    MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
             this.Close();

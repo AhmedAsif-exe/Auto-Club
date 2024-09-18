@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient; using System.Configuration;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
@@ -36,24 +37,80 @@ namespace Auto_Club
             editButtonColumn.UseColumnTextForButtonValue = true; // Display text on buttons
             dataGridView1.Columns.Add(editButtonColumn);
 
+            DataGridViewButtonColumn deleteButtonColumn = new DataGridViewButtonColumn();
+            deleteButtonColumn.Name = "Delete";
+            deleteButtonColumn.Text = "Delete";
+            deleteButtonColumn.UseColumnTextForButtonValue = true; // Display text on buttons
+            dataGridView1.Columns.Add(deleteButtonColumn);
+
             dataGridView1.CellClick += cell_click_handler;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             // Create the Edit button column
         }
         void cell_click_handler(object sender, DataGridViewCellEventArgs e)
         {
-
-            if (e.RowIndex >= 0 && (e.ColumnIndex == dataGridView1.Columns["Edit"].Index))
+            try
             {
-                string id = dataGridView1.Rows[e.RowIndex].Cells["Car Number"].Value.ToString();
 
-                Edit edit = new Edit(id);
-                edit.FormClosed += (s, args) => { 
-                    this.Show();
-                    button1.PerformClick();
-                };
-                this.Hide();
-                edit.Show();
+                if (e.RowIndex >= 0 && (e.ColumnIndex == dataGridView1.Columns["Edit"].Index))
+                {
+                    string id = dataGridView1.Rows[e.RowIndex].Cells["Car Number"].Value.ToString();
+
+                    Edit edit = new Edit(id);
+                    edit.FormClosed += (s, args) =>
+                    {
+                        this.Show();
+                        button1.PerformClick();
+                    };
+                    this.Hide();
+                    edit.Show();
+                }
+
+                if (e.RowIndex >= 0 && (e.ColumnIndex == dataGridView1.Columns["Delete"].Index))
+                {
+
+                    string status = dataGridView1.Rows[e.RowIndex].Cells["Status"].Value.ToString();
+                    if (status == "Not Available") return;
+
+                    DialogResult result = MessageBox.Show(
+                                        "Are you sure you want to delete this?", // The message displayed in the box
+                                        "Confirmation",                      // The title of the message box
+                                        MessageBoxButtons.YesNo,              // Buttons to display (Yes and No)
+                                        MessageBoxIcon.Question               // Icon to display (Question mark)
+                                                          );
+                    if (result == DialogResult.No) return;
+                    string id = dataGridView1.Rows[e.RowIndex].Cells["Car Number"].Value.ToString();
+                    try
+                    {
+                        string query = @"
+                                        update cars
+                                        set status = 'Deleted'
+                                        where car_number = @car_num
+                                        ";
+                        string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
+
+                        using (SqlConnection conn = new SqlConnection(connection_string))
+                        {
+                            conn.Open();
+
+                            using (SqlCommand cmd = new SqlCommand(query, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@car_num", id);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+
+                        dataGridView1.Rows.RemoveAt(e.RowIndex);
+
+
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+                }
+            }
+            catch (Exception ex)
+            {
             }
 
 
@@ -68,7 +125,7 @@ namespace Auto_Club
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
                 conn.Open();
-                string query = "SELECT * FROM cars WHERE car_number LIKE @substring";
+                string query = "SELECT * FROM cars WHERE car_number LIKE @substring and status <> 'Deleted'";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@substring", "%" + car_number + "%");
@@ -123,6 +180,7 @@ namespace Auto_Club
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
         }
 
         private void button3_Click(object sender, EventArgs e)

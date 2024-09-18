@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient; using System.Configuration;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -98,7 +99,7 @@ namespace Auto_Club
         {
             string name = "";
             int customer_id = 0;
-           
+
             string connection_string = ConfigurationManager.ConnectionStrings["DB_CONNECTION_STRING"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connection_string))
             {
@@ -109,7 +110,8 @@ namespace Auto_Club
                                 FROM customers
                                 WHERE cnic = @cnic
                                 ";
-                try { 
+                try
+                {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@cnic", Cnic);
@@ -123,10 +125,11 @@ namespace Auto_Club
                             }
                         }
                     }
-                } catch(SqlException ex)
+                }
+                catch (SqlException ex)
                 {
 
-                        MessageBox.Show(TranslateSqlException(ex));
+                    MessageBox.Show(TranslateSqlException(ex));
 
                 }
             }
@@ -135,7 +138,7 @@ namespace Auto_Club
             {
                 this.id = customer_id;
             }
-            
+
         }
         string TranslateSqlException(SqlException ex)
         {

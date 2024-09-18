@@ -147,4 +147,7 @@ SELECT name, cnic, phone_number, parent_name, phone_residence, current_residence
                                 FROM customer_cars cc
                                 INNER JOIN customers c ON cc.customer_id = c.customer_id
                                 INNER JOIN cars ON cc.car_id = cars.car_number
-                                
+SELECT * FROM cars WHERE status = 'Deleted'
+update customer_cars
+set return_date = GETDATE()
+where return_date is null and car_id = 'NA-277'  
