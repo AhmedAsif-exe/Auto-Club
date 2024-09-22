@@ -29,13 +29,11 @@
         private void InitializeComponent()
         {
             textBox9 = new TextBox();
-            textBox8 = new TextBox();
             textBox5 = new TextBox();
             textBox4 = new TextBox();
             textBox3 = new TextBox();
             textBox2 = new TextBox();
             button3 = new Button();
-            label9 = new Label();
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
@@ -48,42 +46,36 @@
             // 
             // textBox9
             // 
-            textBox9.Location = new Point(894, 227);
+            textBox9.Location = new Point(850, 323);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(150, 31);
             textBox9.TabIndex = 49;
             // 
-            // textBox8
-            // 
-            textBox8.Location = new Point(894, 162);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(150, 31);
-            textBox8.TabIndex = 48;
-            // 
             // textBox5
             // 
-            textBox5.Location = new Point(341, 367);
+            textBox5.Location = new Point(850, 258);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(150, 31);
             textBox5.TabIndex = 47;
+            textBox5.TextChanged += textBox5_TextChanged;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(341, 302);
+            textBox4.Location = new Point(297, 398);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(150, 31);
             textBox4.TabIndex = 46;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(341, 225);
+            textBox3.Location = new Point(297, 321);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(150, 31);
             textBox3.TabIndex = 45;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(341, 162);
+            textBox2.Location = new Point(297, 258);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(150, 31);
             textBox2.TabIndex = 44;
@@ -100,31 +92,22 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(753, 155);
-            label9.Name = "label9";
-            label9.Size = new Size(117, 37);
-            label9.TabIndex = 42;
-            label9.Text = "Status:";
-            // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(69, 358);
+            label6.Location = new Point(578, 249);
             label6.Name = "label6";
             label6.Size = new Size(249, 37);
             label6.TabIndex = 41;
             label6.Text = "Engine Number:";
+            label6.Click += label6_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(606, 220);
+            label5.Location = new Point(562, 316);
             label5.Name = "label5";
             label5.Size = new Size(264, 37);
             label5.TabIndex = 40;
@@ -134,7 +117,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(211, 293);
+            label4.Location = new Point(167, 389);
             label4.Name = "label4";
             label4.Size = new Size(103, 37);
             label4.TabIndex = 39;
@@ -144,7 +127,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(199, 225);
+            label3.Location = new Point(155, 321);
             label3.Name = "label3";
             label3.Size = new Size(112, 37);
             label3.TabIndex = 38;
@@ -154,7 +137,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(199, 155);
+            label2.Location = new Point(155, 251);
             label2.Name = "label2";
             label2.Size = new Size(114, 37);
             label2.TabIndex = 37;
@@ -164,7 +147,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(281, 55);
+            label1.Location = new Point(199, 131);
             label1.Name = "label1";
             label1.Size = new Size(245, 40);
             label1.TabIndex = 36;
@@ -172,7 +155,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(546, 67);
+            textBox1.Location = new Point(464, 143);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(363, 31);
             textBox1.TabIndex = 35;
@@ -196,13 +179,11 @@
             ClientSize = new Size(1137, 588);
             Controls.Add(button1);
             Controls.Add(textBox9);
-            Controls.Add(textBox8);
             Controls.Add(textBox5);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(button3);
-            Controls.Add(label9);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -213,6 +194,7 @@
             Name = "Add";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Add";
+            Load += Add_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -220,13 +202,11 @@
         #endregion
 
         private TextBox textBox9;
-        private TextBox textBox8;
         private TextBox textBox5;
         private TextBox textBox4;
         private TextBox textBox3;
         private TextBox textBox2;
         private Button button3;
-        private Label label9;
         private Label label6;
         private Label label5;
         private Label label4;

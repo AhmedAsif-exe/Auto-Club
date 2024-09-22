@@ -193,29 +193,29 @@ namespace Auto_Club
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
-            //Drawing image logo
-            //string logoPath = "./logo_auto_club-300.png";
-            //Image logo = Image.FromFile(logoPath);
-            //int maxLogoWidth = 300;
-            //int maxLogoHeight = 300;
 
-            //float aspectRatio = (float)logo.Width / logo.Height;
+            string logoPath = "./logo_auto_club-300.png";
+            Image logo = Image.FromFile(logoPath);
+            int maxLogoWidth = 300;
+            int maxLogoHeight = 300;
 
-            //// Adjust width and height to maintain aspect ratio within the given bounds
-            //int logoWidth = maxLogoWidth;
-            //int logoHeight = maxLogoHeight;
+            float aspectRatio = (float)logo.Width / logo.Height;
 
-            //if (logo.Width > logo.Height)
-            //{
-            //    logoHeight = (int)(maxLogoWidth / aspectRatio);
-            //}
-            //else
-            //{
-            //    logoWidth = (int)(maxLogoHeight * aspectRatio);
-            //}
+            // Adjust width and height to maintain aspect ratio within the given bounds
+            int logoWidth = maxLogoWidth;
+            int logoHeight = maxLogoHeight;
 
-            //// Draw the resized logo
-            //e.Graphics.DrawImage(logo, 450, 0, logoWidth, logoHeight);
+            if (logo.Width > logo.Height)
+            {
+                logoHeight = (int)(maxLogoWidth / aspectRatio);
+            }
+            else
+            {
+                logoWidth = (int)(maxLogoHeight * aspectRatio);
+            }
+
+            // Draw the resized logo
+            e.Graphics.DrawImage(logo, 450, 0, logoWidth, logoHeight);
 
             // Define fonts
 
@@ -236,8 +236,7 @@ namespace Auto_Club
             // Company Name and Details
             e.Graphics.DrawString("Auto Club Rent A Car", titleFont, brush, startX, startY);
             e.Graphics.DrawString("Shop B 1 Building, Usmania restaurant,", subHeadingFont, brush, startX, startY + lineHeight);
-            e.Graphics.DrawString("committee chowk, Dhoke Elahi Baksh,", subHeadingFont, brush, startX, startY + lineHeight * 2 - 15);
-            e.Graphics.DrawString("Rawalpindi", subHeadingFont, brush, startX, startY + lineHeight * 3 - 30);
+            e.Graphics.DrawString("committee chowk, Rawalpindi", subHeadingFont, brush, startX, startY + lineHeight * 2 - 15);
             e.Graphics.DrawString("0333-4560077 | 0313-5555477", subHeadingFont, brush, startX, startY + (lineHeight * 4 - 30));
 
             // Rental Agreement Number and Date
@@ -274,7 +273,7 @@ namespace Auto_Club
             e.Graphics.DrawString("Residential Address: _______________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 16));
             e.Graphics.DrawString("                                    " + state.g_residence, regularFont, brush, startX, startY + (lineHeight * 16));
             e.Graphics.DrawString("Phone Number 2: _________________________________________________________________", regularFont, brush, startX, startY + (lineHeight * 17));
-            e.Graphics.DrawString("                              " + state.g_phone_number, regularFont, brush, startX, startY + (lineHeight * 17));
+            e.Graphics.DrawString("                              " + state.g_phone_address, regularFont, brush, startX, startY + (lineHeight * 17));
 
             // Vehicle Information
             e.Graphics.DrawString("Vehicle Information", sectionFont, brush, startX, startY + (lineHeight * 19));

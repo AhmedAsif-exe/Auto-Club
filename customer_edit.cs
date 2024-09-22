@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient; using System.Configuration;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Auto_Club
     public partial class customer_edit : Form
     {
         int customer_id;
+        string cnic_mem = "";
         public customer_edit(int customer_id)
         {
             InitializeComponent();
@@ -51,6 +53,7 @@ namespace Auto_Club
                                 g_num.Text = (reader.IsDBNull(10) ? "N/A" : reader.GetString(10));
                                 g_phone_address.Text = (reader.IsDBNull(11) ? "N/A" : reader.GetString(11));
                                 g_current_address.Text = (reader.IsDBNull(12) ? "N/A" : reader.GetString(12));
+                                this.cnic_mem = cnic.Text;
                             }
                             catch (Exception err)
                             {
@@ -66,7 +69,7 @@ namespace Auto_Club
         }
         void save_customer()
         {
-
+           
             try
             {
 
@@ -90,7 +93,7 @@ namespace Auto_Club
                                     WHERE 
                                         customer_id = @customer_id
                             ";
-                    MessageBox.Show($"{name.Text.Trim()}");
+
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -147,6 +150,13 @@ namespace Auto_Club
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (cnic_mem != cnic.Text)
+            {
+                MessageBox.Show("Can not change CNIC");
+                cnic.Text = cnic_mem;
+                return;
+            }
+
             save_customer();
             //customer_search customer_Search = new customer_search();
             //customer_Search.Show();
@@ -158,6 +168,11 @@ namespace Auto_Club
             //customer_search customer_Search = new customer_search();
             //customer_Search.Show();
             this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

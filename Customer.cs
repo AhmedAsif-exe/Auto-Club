@@ -61,7 +61,7 @@ namespace Auto_Club
 
                         cmd.Parameters.AddWithValue("@guarantor_name", string.IsNullOrEmpty(g_name.Text.Trim()) ? (object)DBNull.Value : g_name.Text.Trim());
                         cmd.Parameters.AddWithValue("@guarantor_parent_name", string.IsNullOrEmpty(g_parent_name.Text.Trim()) ? (object)DBNull.Value : g_parent_name.Text.Trim());
-                        cmd.Parameters.AddWithValue("@guarantor_cnic", string.IsNullOrEmpty(g_cnic.Text.Trim()) ? (object)DBNull.Value : cnic.Text.Trim());
+                        cmd.Parameters.AddWithValue("@guarantor_cnic", string.IsNullOrEmpty(g_cnic.Text.Trim()) ? (object)DBNull.Value : g_cnic.Text.Trim());
                         cmd.Parameters.AddWithValue("@guarantor_phone_number", string.IsNullOrEmpty(g_num.Text.Trim()) ? (object)DBNull.Value : g_num.Text.Trim());
                         cmd.Parameters.AddWithValue("@guarantor_phone_residence", string.IsNullOrEmpty(g_phone_address.Text.Trim()) ? (object)DBNull.Value : g_phone_address.Text.Trim());
                         cmd.Parameters.AddWithValue("@guarantor_current_residence", string.IsNullOrEmpty(g_current_address.Text.Trim()) ? (object)DBNull.Value : g_current_address.Text.Trim());

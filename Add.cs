@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient; using System.Configuration;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace Auto_Club
             string model = textBox3.Text.Trim();
             string color = textBox4.Text.Trim();
             string engine_number = textBox5.Text.Trim();
-            string status = textBox8.Text.Trim();
+            string status = "Available";
             string chassis_number = textBox9.Text.Trim();
 
             if (String.IsNullOrEmpty(car_number))
@@ -94,6 +95,20 @@ namespace Auto_Club
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Add_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

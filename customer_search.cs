@@ -55,7 +55,10 @@ namespace Auto_Club
             {
                 string id = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value.ToString();
                 customer_edit customer = new customer_edit(Convert.ToInt32(id));
-                customer.FormClosed += (s, args) => this.Show();
+                customer.FormClosed += (s, args) => { 
+                    this.Show();
+                    button1_Click(sender, e);
+                };
                 this.Hide();
                 customer.Show();
             }
