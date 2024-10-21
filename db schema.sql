@@ -14,13 +14,14 @@ CREATE TABLE cars (
     chassis_number VARCHAR(50),
 	color varchar(50)
 );
+
 select * from cars where car_number = ' ALX-15'
 
 UPDATE cars SET maker = 'HONDA CIVIC', model = '2018', engine_number = 'R18Z12934286', chassis_number = 'NFBFC666XJR037712', color = 'WHITE', status = 'Not Available' WHERE car_number = ' ALX-15'
 
 ALTER TABLE cars
 ADD status VARCHAR(50) DEFAULT NULL;
-
+select * from cars where maker = 'ALT'
 
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY IDENTITY(1,1), -- Auto-incrementing customer ID
@@ -50,6 +51,26 @@ CREATE TABLE customer_cars (
     FOREIGN KEY (car_id) REFERENCES cars(car_number)
 
 );
+
+ALTER TABLE customer_cars
+DROP CONSTRAINT FK__customer___car_i__5165187F;
+
+ALTER TABLE customer_cars
+DROP CONSTRAINT FK__customer___custo__5165187F;
+
+SELECT 
+    fk.name AS ForeignKeyName,
+    t.name AS TableName
+FROM 
+    sys.foreign_keys AS fk
+INNER JOIN 
+    sys.tables AS t ON fk.parent_object_id = t.object_id
+WHERE 
+    t.name = 'customer_cars';  -- Replace with your table name
+-- Step 2: Re-add the foreign key constraint with ON UPDATE CASCADE
+
+
+
 drop table customer_cars
 select * from customer_cars
 drop table customers

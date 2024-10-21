@@ -19,8 +19,10 @@ namespace Auto_Club
     public partial class Edit : Form
     {
         bool isRented = false;
+        string car_id = "";
         public Edit(string car_num)
         {
+            this.car_id = car_num;
             InitializeComponent();
             isRented = render_date_condition(car_num);
             get_data(car_num);
@@ -137,7 +139,8 @@ namespace Auto_Club
                     "engine_number = @engine_number, " +
                     "chassis_number = @chassis_number, " +
                     "color = @color, " +
-                    "status = @status " +
+                    "status = @status, " +
+                    "car_number = @car_id " +
                     "WHERE car_number = @car_number";
 
             using (SqlConnection connection = new SqlConnection(connection_string))
@@ -147,8 +150,9 @@ namespace Auto_Club
                     using (SqlCommand command = new SqlCommand(query, connection))
                 {
 
-                    // Add parameters to the command
-                    command.Parameters.AddWithValue("@car_number", car_number);
+                        // Add parameters to the command
+                        command.Parameters.AddWithValue("@car_id", car_number);
+                    command.Parameters.AddWithValue("@car_number", this.car_id);
                     command.Parameters.AddWithValue("@maker", maker);
                     command.Parameters.AddWithValue("@model", model);
                     command.Parameters.AddWithValue("@engine_number", engine_number);
@@ -164,6 +168,18 @@ namespace Auto_Club
                             MessageBox.Show("Data inserted successfully.");
                    
                 }
+
+                    query = @"
+                            update customer_cars
+                            set car_id = @car_id
+                            where car_id = @car_num
+                            ";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@car_id", car_number);
+                        command.Parameters.AddWithValue("@car_num", this.car_id);
+                        command.ExecuteNonQuery();
+                    }
 
                 if (isRented == false && radioButton1.Checked == true) {
                     query = @"
